@@ -59,7 +59,7 @@
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
         ],
-        "php-cs": "php ./vendor/bin/phpcs --colors -s -p --standard=./phpcs.xml ./app",
+        "php-cs": "php ./vendor/bin/phpcs --colors -p --standard=./phpcs.xml ./app",
         "php-fix": "php ./vendor/bin/phpcbf -p --standard=./phpcs.xml ./app"
 
     }
