@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -16,12 +16,21 @@ class GoogleTextAd extends Model
      */
     protected $table = 'google_text_ads';
 
+
+    /**
+     * Get the advertisemant.
+     */
+    public function advertise()
+    {
+        return $this->morphOne(Advertisement::class, 'advertisable');
+    }
+
     /**
      * Created by relation
      *
      * @return App\User
      */
-    public function createdBy ()
+    public function createdBy()
     {
         return $this->belongsTo(User::class, 'created_by', 'id');
     }
