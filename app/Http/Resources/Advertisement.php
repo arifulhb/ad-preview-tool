@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\Http\Resources\Users as UsersResource;
+use App\Http\Resources\Created as UsersResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Factory\AdvertisementFactory;
 
