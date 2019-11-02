@@ -11,9 +11,8 @@ abstract class AdvertisementFactory
      * */
     public static function createAdvertisement($type)
     {
-        switch($type)
-        {
-            CASE "GoogleTextAd":
+        switch ($type) {
+            case "GoogleTextAd":
                 return new GoogleTextAdvertisement();
             break;
         }
