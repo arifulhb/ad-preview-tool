@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\User;
+use App\Models\Publisher;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -23,7 +25,7 @@ class GoogleTextAd extends Model
      * @var array
      */
     protected $fillable = ['headline_1', 'headline_2', 'headline_3',
-    'description_1', 'description_2', 'display_url'];
+    'description_1', 'description_2', 'display_url', 'publisher_id'];
 
     /**
      * Get the advertisemant.
@@ -31,6 +33,16 @@ class GoogleTextAd extends Model
     public function advertise()
     {
         return $this->morphOne(Advertisement::class, 'advertisable');
+    }
+
+    /**
+     * Publication relation
+     *
+     * @return App\Publisher
+     */
+    public function publisher()
+    {
+        return $this->belongsTo(Publisher::class, 'publisher_id', 'id');
     }
 
     /**
