@@ -22,7 +22,7 @@ class Publisher extends Model
      *
      * @return App\User
      */
-    public function createdBy ()
+    public function createdBy()
     {
         return $this->belongsTo(User::class, 'created_by', 'id');
     }
@@ -36,5 +36,4 @@ class Publisher extends Model
     {
         return $this->belongsTo(User::class, 'updated_by', 'id');
     }
-
 }
