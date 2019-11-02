@@ -38,4 +38,15 @@ Route::group([
 ], function()
 {
 
+    /**
+     * GoogleTextAdvertisement Routes
+     */
+    Route::group(['prefix' => 'advertise'], function() {
+        Route::get('index', 'AdvertisementController@index');
+        Route::get('{id}', 'AdvertisementController@view');
+        Route::post('create', 'AdvertisementController@create');
+        Route::post('update/{id}', 'AdvertisementController@update');
+        Route::delete('{id}', 'AdvertisementController@delete');
+    });
+
 });
