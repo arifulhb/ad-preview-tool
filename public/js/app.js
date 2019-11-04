@@ -51301,6 +51301,38 @@ function (_Component) {
         _this3.getAdvertisements(_this3.state.page);
       });
     }
+  }, {
+    key: "renderPublished",
+    value: function renderPublished(isPublished) {
+      if (isPublished === true) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+          className: "badge badge-success p-1"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+          className: "fa fa-check"
+        }), " Published");
+      } else {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+          className: "badge badge-warning p-1"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+          className: "fa fa-edit"
+        }), " Draft");
+      }
+    }
+  }, {
+    key: "renderVisibility",
+    value: function renderVisibility(visibility) {
+      if (visibility === 'None') {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+          className: "text-muted"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+          className: "fa fa-user-lock"
+        }), " ", visibility);
+      } else {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+          className: "fa fa-globe-asia text-success"
+        }), " ", visibility);
+      }
+    }
     /**
      * Generate Table Row
      */
@@ -51308,11 +51340,44 @@ function (_Component) {
   }, {
     key: "renderTableRow",
     value: function renderTableRow() {
+      var _this4 = this;
+
       if (!lodash__WEBPACK_IMPORTED_MODULE_3___default.a.isNull(this.state.advertisements)) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, this.state.advertisements.map(function (row) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
             key: "tr_".concat(row.id)
-          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.id), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.advertisement.publisher !== null ? row.advertisement.publisher.name : ''), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.advertisementType), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.title));
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.id), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.advertisement.publisher !== null ? row.advertisement.publisher.name : ''), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.advertisementType), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, _this4.renderPublished(row.isPublished)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, _this4.renderVisibility(row.visibility)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "..."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+            className: "text-right"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "btn-group btn-group-sm",
+            role: "group"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+            type: "button",
+            className: "btn btn-link"
+          }, "View"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "btn-group btn-group-sm",
+            role: "group"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+            id: "btnGroupDrop1",
+            type: "button",
+            className: "btn btn-default dropdown-toggle",
+            "data-toggle": "dropdown",
+            "aria-haspopup": "true",
+            "aria-expanded": "false"
+          }, "Action"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "dropdown-menu",
+            "aria-labelledby": "btnGroupDrop1"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+            className: "dropdown-item",
+            href: "#"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+            className: "fa fa-edit"
+          }), " Edit"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+            className: "dropdown-item",
+            href: "#"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+            className: "fa fa-trash"
+          }), " Delete"))))));
         }));
       } else {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
@@ -51329,7 +51394,7 @@ function (_Component) {
   }, {
     key: "renderPaginationPageItems",
     value: function renderPaginationPageItems(pagination) {
-      var _this4 = this;
+      var _this5 = this;
 
       if (pagination.total >= pagination.count) {
         // pagination logic taken from https://stackoverflow.com/a/11274294
@@ -51355,8 +51420,8 @@ function (_Component) {
             key: "page_".concat(p),
             className: "pagination__body--item page-item"
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-            onClick: _this4.setPageNumber.bind(_this4, p),
-            className: "page-link pagination__body--item ".concat(p === _this4.state.page ? 'bg-dark text-white' : ''),
+            onClick: _this5.setPageNumber.bind(_this5, p),
+            className: "page-link pagination__body--item ".concat(p === _this5.state.page ? 'bg-dark text-white' : ''),
             href: "#"
           }, p));
         }));
@@ -51404,7 +51469,23 @@ function (_Component) {
         className: "table table-bordered table-sm table-hover"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", {
         className: "bg-light"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Id"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Publisher"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Type"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Title"))), this.renderTableRow())), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        width: "2%"
+      }, "Id"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        width: "6%"
+      }, "Publisher"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        width: "6%"
+      }, "Type"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        width: "15%"
+      }, "Title"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        width: "5%"
+      }, "Status"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        width: "5%"
+      }, "Visibility"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        width: "8%"
+      }, "Last Update"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        width: "5%"
+      }, "..."))), this.renderTableRow())), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-footer p-0"
       }, this.renderPagination()));
     }

@@ -46,6 +46,26 @@ export default class MyAdvertisements extends Component {
     })
   }
 
+  renderPublished (isPublished) {
+    if (isPublished === true) {
+      return (
+        <label className='badge badge-success p-1'><i className='fa fa-check' /> Published</label>
+      )
+    } else {
+      return (
+        <label className='badge badge-warning p-1'><i className='fa fa-edit' /> Draft</label>
+      )
+    }
+  }
+
+  renderVisibility (visibility) {
+    if (visibility === 'None') {
+      return <label className='text-muted'><i className='fa fa-user-lock' /> {visibility}</label>
+    } else {
+      return <label><i className='fa fa-globe-asia text-success' /> {visibility}</label>
+    }
+  }
+
   /**
    * Generate Table Row
    */
@@ -61,6 +81,30 @@ export default class MyAdvertisements extends Component {
                   <td>{row.advertisement.publisher !== null ? row.advertisement.publisher.name : ''}</td>
                   <td>{row.advertisementType}</td>
                   <td>{row.title}</td>
+                  <td>{this.renderPublished(row.isPublished)}</td>
+                  <td>{this.renderVisibility(row.visibility)}</td>
+                  <td>...</td>
+                  <td className='text-right'>
+                    <div className='btn-group btn-group-sm' role='group'>
+                      <button type='button' className='btn btn-link'>View</button>
+                      <div className='btn-group btn-group-sm' role='group'>
+                        <button
+                          id='btnGroupDrop1'
+                          type='button'
+                          className='btn btn-default dropdown-toggle'
+                          data-toggle='dropdown'
+                          aria-haspopup='true'
+                          aria-expanded='false'
+                        >
+                          Action
+                        </button>
+                        <div className='dropdown-menu' aria-labelledby='btnGroupDrop1'>
+                          <a className='dropdown-item' href='#'><i className='fa fa-edit' /> Edit</a>
+                          <a className='dropdown-item' href='#'><i className='fa fa-trash' /> Delete</a>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
                 </tr>
               )
             })
@@ -163,10 +207,14 @@ export default class MyAdvertisements extends Component {
           <table className='table table-bordered table-sm table-hover'>
             <thead className='bg-light'>
               <tr>
-                <th>Id</th>
-                <th>Publisher</th>
-                <th>Type</th>
-                <th>Title</th>
+                <th width='2%'>Id</th>
+                <th width='6%'>Publisher</th>
+                <th width='6%'>Type</th>
+                <th width='15%'>Title</th>
+                <th width='5%'>Status</th>
+                <th width='5%'>Visibility</th>
+                <th width='8%'>Last Update</th>
+                <th width='5%'>...</th>
               </tr>
             </thead>
             {this.renderTableRow()}
