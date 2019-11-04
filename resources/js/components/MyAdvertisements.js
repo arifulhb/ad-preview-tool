@@ -8,18 +8,33 @@ export default class MyAdvertisements extends Component {
     super(props)
     this.state = {
       advertisements: null,
-      pagination: null
+      pagination: null,
+      page: 1
     }
   }
 
   componentDidMount () {
-    api.get('advertise/index')
+    this.generateTableData(this.state.page)
+  }
+
+  generateTableData (page) {
+    api.get(`advertise/index?page=${page}`)
       .then(res => {
         this.setState({
           advertisements: _.values(res.data.data),
           pagination: res.data.pagination
+        }, () => {
+          // console.log('table record updated')
         })
       })
+  }
+
+  setPageNumber (page) {
+    this.setState({
+      page: page
+    }, () => {
+      this.generateTableData(this.state.page)
+    })
   }
 
   renderTableRow () {
@@ -57,7 +72,6 @@ export default class MyAdvertisements extends Component {
       const pages = []
 
       if (startPage <= 0) {
-        console.log('here')
         endPage -= (startPage - 1)
         startPage = 1
       }
@@ -75,7 +89,12 @@ export default class MyAdvertisements extends Component {
             pages.map((p) => {
               return (
                 <li key={`page_${p}`} className='pagination__body--item page-item'>
-                  <a className='page-link pagination__body--item' href='#'>{p}</a>
+                  <a
+                    onClick={this.setPageNumber.bind(this, p)}
+                    className={`page-link pagination__body--item ${p === this.state.page ? 'bg-dark text-white' : ''}`}
+                    href='#'
+                  >{p}
+                  </a>
                 </li>
               )
             })
@@ -86,18 +105,29 @@ export default class MyAdvertisements extends Component {
   }
 
   renderPagination () {
-    console.log(this.state.pagination)
     const pagination = this.state.pagination
     if (!_.isNull(this.state.pagination)) {
       return (
         <nav aria-label='navigation pagination'>
           <ul className='pagination__body pagination m-2'>
             <li className={`pagination__body--item page-item ${pagination.current_page === 1 ? 'disabled' : ''}`}>
-              <a className='page-link pagination__body--item' href='#'>Previous</a>
+              <a
+                onClick={this.setPageNumber.bind(this, 1)}
+                className='page-link pagination__body--item'
+                href='#'
+              >
+                First
+              </a>
             </li>
             {this.renderPaginationPageItems(pagination)}
             <li className={`pagination__body--item page-item ${pagination.total_pages <= pagination.current_page ? 'disabled' : ''}`}>
-              <a className='page-link pagination__body--item' href='#'>Next</a>
+              <a
+                onClick={this.setPageNumber.bind(this, this.state.pagination.total_pages)}
+                className='page-link pagination__body--item'
+                href='#'
+              >
+                Last
+              </a>
             </li>
           </ul>
         </nav>

@@ -51255,7 +51255,8 @@ function (_Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(MyAdvertisements).call(this, props));
     _this.state = {
       advertisements: null,
-      pagination: null
+      pagination: null,
+      page: 1
     };
     return _this;
   }
@@ -51263,13 +51264,30 @@ function (_Component) {
   _createClass(MyAdvertisements, [{
     key: "componentDidMount",
     value: function componentDidMount() {
+      this.generateTableData(this.state.page);
+    }
+  }, {
+    key: "generateTableData",
+    value: function generateTableData(page) {
       var _this2 = this;
 
-      _utils_api__WEBPACK_IMPORTED_MODULE_2__["default"].get('advertise/index').then(function (res) {
+      _utils_api__WEBPACK_IMPORTED_MODULE_2__["default"].get("advertise/index?page=".concat(page)).then(function (res) {
         _this2.setState({
           advertisements: lodash__WEBPACK_IMPORTED_MODULE_3___default.a.values(res.data.data),
           pagination: res.data.pagination
+        }, function () {// console.log('table record updated')
         });
+      });
+    }
+  }, {
+    key: "setPageNumber",
+    value: function setPageNumber(page) {
+      var _this3 = this;
+
+      this.setState({
+        page: page
+      }, function () {
+        _this3.generateTableData(_this3.state.page);
       });
     }
   }, {
@@ -51290,6 +51308,8 @@ function (_Component) {
   }, {
     key: "renderPaginationPageItems",
     value: function renderPaginationPageItems(pagination) {
+      var _this4 = this;
+
       if (pagination.total >= pagination.count) {
         // pagination logic taken from https://stackoverflow.com/a/11274294
         var startPage = pagination.current_page - 1;
@@ -51297,7 +51317,6 @@ function (_Component) {
         var pages = [];
 
         if (startPage <= 0) {
-          console.log('here');
           endPage -= startPage - 1;
           startPage = 1;
         }
@@ -51315,7 +51334,8 @@ function (_Component) {
             key: "page_".concat(p),
             className: "pagination__body--item page-item"
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-            className: "page-link pagination__body--item",
+            onClick: _this4.setPageNumber.bind(_this4, p),
+            className: "page-link pagination__body--item ".concat(p === _this4.state.page ? 'bg-dark text-white' : ''),
             href: "#"
           }, p));
         }));
@@ -51324,7 +51344,6 @@ function (_Component) {
   }, {
     key: "renderPagination",
     value: function renderPagination() {
-      console.log(this.state.pagination);
       var pagination = this.state.pagination;
 
       if (!lodash__WEBPACK_IMPORTED_MODULE_3___default.a.isNull(this.state.pagination)) {
@@ -51335,14 +51354,16 @@ function (_Component) {
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
           className: "pagination__body--item page-item ".concat(pagination.current_page === 1 ? 'disabled' : '')
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+          onClick: this.setPageNumber.bind(this, 1),
           className: "page-link pagination__body--item",
           href: "#"
-        }, "Previous")), this.renderPaginationPageItems(pagination), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        }, "First")), this.renderPaginationPageItems(pagination), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
           className: "pagination__body--item page-item ".concat(pagination.total_pages <= pagination.current_page ? 'disabled' : '')
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+          onClick: this.setPageNumber.bind(this, this.state.pagination.total_pages),
           className: "page-link pagination__body--item",
           href: "#"
-        }, "Next"))));
+        }, "Last"))));
       }
     }
   }, {
