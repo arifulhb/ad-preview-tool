@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import axios from 'axios'
-
 import _ from 'lodash'
 
 export default class MyAdvertisements extends Component {
@@ -23,18 +22,18 @@ export default class MyAdvertisements extends Component {
       })
   }
 
-  renderTableRow() {
+  renderTableRow () {
     if (!_.isNull(this.state.advertisements)) {
       return (
         <tbody>
           {
-            this.state.advertisements.map(function(row) {
+            this.state.advertisements.map((row) => {
               return (
                 <tr key={`tr_${row.id}`}>
-                  <td>{ row.id }</td>
-                  <td>{ row.advertisement.publisher!==null ? row.advertisement.publisher.name : ''}</td>
-                  <td>{ row.advertisementType}</td>
-                  <td>{ row.title }</td>
+                  <td>{row.id}</td>
+                  <td>{row.advertisement.publisher !== null ? row.advertisement.publisher.name : ''}</td>
+                  <td>{row.advertisementType}</td>
+                  <td>{row.title}</td>
                 </tr>
               )
             })
@@ -64,9 +63,7 @@ export default class MyAdvertisements extends Component {
                 <th>Title</th>
               </tr>
             </thead>
-              {
-                this.renderTableRow()
-              }
+            {this.renderTableRow()}
           </table>
         </div>
       </div>
@@ -77,7 +74,7 @@ export default class MyAdvertisements extends Component {
 if (document.getElementById('my-advertisements')) {
   const el = document.getElementById('my-advertisements')
   const props = Object.assign({}, el.dataset)
-  ReactDOM.render(<MyAdvertisements {...props}/>,
-      document.getElementById('my-advertisements')
-    )
+  ReactDOM.render(<MyAdvertisements {...props} />,
+    document.getElementById('my-advertisements')
+  )
 }
