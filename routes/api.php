@@ -32,7 +32,7 @@ Route::group([
  * Authenticated Routes
  */
 Route::group([
-    'middleware' => 'auth:api',
+    'middleware' => 'auth',
     'namespace' => 'Api\v1',
     'prefix' => 'v1'
 ], function()
