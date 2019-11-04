@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import axios from 'axios'
+import api from '../utils/api'
 import _ from 'lodash'
 
 export default class MyAdvertisements extends Component {
@@ -13,7 +13,7 @@ export default class MyAdvertisements extends Component {
   }
 
   componentDidMount () {
-    axios.get(`http://ad-preview-tool.local/api/v1/advertise/index`)
+    api.get(`advertise/index`)
       .then(res => {
         this.setState({
           advertisements: _.values(res.data.data),
