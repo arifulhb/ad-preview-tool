@@ -52,7 +52,7 @@ export default class MyAdvertisements extends Component {
   render () {
     return (
       <div className='card border-light mb-3'>
-        <div className='card-header'>{this.props.title}</div>
+        <div className='card-header bg-dark text-white'>{this.props.title}</div>
         <div className='card-body p-0'>
           <table className='table table-bordered table-sm table-hover'>
             <thead className='bg-light'>

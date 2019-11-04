@@ -51293,7 +51293,7 @@ function (_Component) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card border-light mb-3"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "card-header"
+        className: "card-header bg-dark text-white"
       }, this.props.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-body p-0"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
