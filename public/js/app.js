@@ -51265,7 +51265,7 @@ function (_Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      _utils_api__WEBPACK_IMPORTED_MODULE_2__["default"].get("advertise/index").then(function (res) {
+      _utils_api__WEBPACK_IMPORTED_MODULE_2__["default"].get('advertise/index').then(function (res) {
         _this2.setState({
           advertisements: lodash__WEBPACK_IMPORTED_MODULE_3___default.a.values(res.data.data),
           pagination: res.data.pagination
@@ -51288,6 +51288,49 @@ function (_Component) {
       }
     }
   }, {
+    key: "renderPaginationPageItems",
+    value: function renderPaginationPageItems(pagination) {
+      if (pagination.total >= pagination.count) {
+        var until = pagination.total / pagination.count + 1;
+        console.log('until ', until);
+        var page = 0;
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, lodash__WEBPACK_IMPORTED_MODULE_3___default.a.range(1, until).map(function (v) {
+          page++;
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+            key: "page_".concat(page),
+            className: "pagination__body--item page-item"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+            className: "page-link pagination__body--item",
+            href: "#"
+          }, page));
+        }));
+      }
+    }
+  }, {
+    key: "renderPagination",
+    value: function renderPagination() {
+      console.log(this.state.pagination);
+      var pagination = this.state.pagination;
+
+      if (!lodash__WEBPACK_IMPORTED_MODULE_3___default.a.isNull(this.state.pagination)) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
+          "aria-label": "navigation pagination"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+          className: "pagination__body pagination m-2"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          className: "pagination__body--item page-item ".concat(pagination.current_page === 1 ? 'disabled' : '')
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+          className: "page-link pagination__body--item",
+          href: "#"
+        }, "Previous")), this.renderPaginationPageItems(pagination), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          className: "pagination__body--item page-item ".concat(pagination.total_pages <= pagination.current_page ? 'disabled' : '')
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+          className: "page-link pagination__body--item",
+          href: "#"
+        }, "Next"))));
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -51300,7 +51343,9 @@ function (_Component) {
         className: "table table-bordered table-sm table-hover"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", {
         className: "bg-light"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Id"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Publisher"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Type"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Title"))), this.renderTableRow())));
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Id"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Publisher"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Type"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Title"))), this.renderTableRow())), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card-footer p-0"
+      }, this.renderPagination()));
     }
   }]);
 

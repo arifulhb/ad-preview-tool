@@ -21,7 +21,7 @@ class AdvertisementRepository
         $user = Auth::user();
         $advertisements = Advertisement::where('created_by', $user->id)
             ->orderByDesc('id')
-            ->paginate(20);
+            ->paginate(5);
 
         return new AdvertisementCollection($advertisements);
     }

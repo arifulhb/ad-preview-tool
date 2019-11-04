@@ -13,7 +13,7 @@ export default class MyAdvertisements extends Component {
   }
 
   componentDidMount () {
-    api.get(`advertise/index`)
+    api.get('advertise/index')
       .then(res => {
         this.setState({
           advertisements: _.values(res.data.data),
@@ -49,6 +49,48 @@ export default class MyAdvertisements extends Component {
     }
   }
 
+  renderPaginationPageItems (pagination) {
+    if (pagination.total >= pagination.count) {
+      const until = (pagination.total / pagination.count) + 1
+      console.log('until ', until)
+      let page = 0
+      return (
+        <>
+          {
+            _.range(1, until).map((v) => {
+              page++
+              return (
+                <li key={`page_${page}`} className='pagination__body--item page-item'>
+                  <a className='page-link pagination__body--item' href='#'>{page}</a>
+                </li>
+              )
+            })
+          }
+        </>
+      )
+    }
+  }
+
+  renderPagination () {
+    console.log(this.state.pagination)
+    const pagination = this.state.pagination
+    if (!_.isNull(this.state.pagination)) {
+      return (
+        <nav aria-label='navigation pagination'>
+          <ul className='pagination__body pagination m-2'>
+            <li className={`pagination__body--item page-item ${pagination.current_page === 1 ? 'disabled' : ''}`}>
+              <a className='page-link pagination__body--item' href='#'>Previous</a>
+            </li>
+            {this.renderPaginationPageItems(pagination)}
+            <li className={`pagination__body--item page-item ${pagination.total_pages <= pagination.current_page ? 'disabled' : ''}`}>
+              <a className='page-link pagination__body--item' href='#'>Next</a>
+            </li>
+          </ul>
+        </nav>
+      )
+    }
+  }
+
   render () {
     return (
       <div className='card border-light mb-3'>
@@ -65,6 +107,9 @@ export default class MyAdvertisements extends Component {
             </thead>
             {this.renderTableRow()}
           </table>
+        </div>
+        <div className='card-footer p-0'>
+          {this.renderPagination()}
         </div>
       </div>
     )
