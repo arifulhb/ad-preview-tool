@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary border-bottom">
     <button class="btn btn-link" id="menu-toggle">
         <i class="fa fa-list"></i>
     </button>
