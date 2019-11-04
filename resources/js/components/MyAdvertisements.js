@@ -14,10 +14,15 @@ export default class MyAdvertisements extends Component {
   }
 
   componentDidMount () {
-    this.generateTableData(this.state.page)
+    this.getAdvertisements(this.state.page)
   }
 
-  generateTableData (page) {
+  /**
+   * Get Advertisement data from api
+   *
+   * @param int page
+   */
+  getAdvertisements (page) {
     api.get(`advertise/index?page=${page}`)
       .then(res => {
         this.setState({
@@ -29,14 +34,21 @@ export default class MyAdvertisements extends Component {
       })
   }
 
+  /**
+   * Set Page state
+   *
+  */
   setPageNumber (page) {
     this.setState({
       page: page
     }, () => {
-      this.generateTableData(this.state.page)
+      this.getAdvertisements(this.state.page)
     })
   }
 
+  /**
+   * Generate Table Row
+   */
   renderTableRow () {
     if (!_.isNull(this.state.advertisements)) {
       return (
@@ -64,6 +76,11 @@ export default class MyAdvertisements extends Component {
     }
   }
 
+  /**
+   * Pagination page list items
+   *
+   * @param Object pagination
+   */
   renderPaginationPageItems (pagination) {
     if (pagination.total >= pagination.count) {
       // pagination logic taken from https://stackoverflow.com/a/11274294
@@ -104,6 +121,9 @@ export default class MyAdvertisements extends Component {
     }
   }
 
+  /**
+   * Generate Pagination Item
+   */
   renderPagination () {
     const pagination = this.state.pagination
     if (!_.isNull(this.state.pagination)) {

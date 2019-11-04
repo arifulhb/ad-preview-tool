@@ -51264,11 +51264,17 @@ function (_Component) {
   _createClass(MyAdvertisements, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.generateTableData(this.state.page);
+      this.getAdvertisements(this.state.page);
     }
+    /**
+     * Get Advertisement data from api
+     *
+     * @param int page
+     */
+
   }, {
-    key: "generateTableData",
-    value: function generateTableData(page) {
+    key: "getAdvertisements",
+    value: function getAdvertisements(page) {
       var _this2 = this;
 
       _utils_api__WEBPACK_IMPORTED_MODULE_2__["default"].get("advertise/index?page=".concat(page)).then(function (res) {
@@ -51279,6 +51285,11 @@ function (_Component) {
         });
       });
     }
+    /**
+     * Set Page state
+     *
+    */
+
   }, {
     key: "setPageNumber",
     value: function setPageNumber(page) {
@@ -51287,9 +51298,13 @@ function (_Component) {
       this.setState({
         page: page
       }, function () {
-        _this3.generateTableData(_this3.state.page);
+        _this3.getAdvertisements(_this3.state.page);
       });
     }
+    /**
+     * Generate Table Row
+     */
+
   }, {
     key: "renderTableRow",
     value: function renderTableRow() {
@@ -51305,6 +51320,12 @@ function (_Component) {
         }, "No record found")));
       }
     }
+    /**
+     * Pagination page list items
+     *
+     * @param Object pagination
+     */
+
   }, {
     key: "renderPaginationPageItems",
     value: function renderPaginationPageItems(pagination) {
@@ -51341,6 +51362,10 @@ function (_Component) {
         }));
       }
     }
+    /**
+     * Generate Pagination Item
+     */
+
   }, {
     key: "renderPagination",
     value: function renderPagination() {
