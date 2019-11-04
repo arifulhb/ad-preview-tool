@@ -51,17 +51,31 @@ export default class MyAdvertisements extends Component {
 
   renderPaginationPageItems (pagination) {
     if (pagination.total >= pagination.count) {
-      const until = (pagination.total / pagination.count) + 1
-      console.log('until ', until)
-      let page = 0
+      // pagination logic taken from https://stackoverflow.com/a/11274294
+      let startPage = pagination.current_page - 1
+      let endPage = pagination.current_page + 1
+      const pages = []
+
+      if (startPage <= 0) {
+        console.log('here')
+        endPage -= (startPage - 1)
+        startPage = 1
+      }
+      if (endPage > pagination.total_pages) {
+        endPage = pagination.total_pages
+      }
+
+      for (let i = startPage; i <= endPage; i++) {
+        pages.push(i)
+      }
+
       return (
         <>
           {
-            _.range(1, until).map((v) => {
-              page++
+            pages.map((p) => {
               return (
-                <li key={`page_${page}`} className='pagination__body--item page-item'>
-                  <a className='page-link pagination__body--item' href='#'>{page}</a>
+                <li key={`page_${p}`} className='pagination__body--item page-item'>
+                  <a className='page-link pagination__body--item' href='#'>{p}</a>
                 </li>
               )
             })

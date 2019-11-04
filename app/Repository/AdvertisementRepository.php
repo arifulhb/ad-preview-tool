@@ -3,10 +3,11 @@
 namespace App\Repository;
 
 use App\Contracts\AdvertisementContract;
-use App\Http\Resources\AdvertisementCollection;
 use App\Http\Resources\Advertisement as AdvertisementsResource;
+use App\Http\Resources\AdvertisementCollection;
 use App\Models\Advertisement;
 use Auth;
+use Illuminate\Pagination\Paginator;
 
 class AdvertisementRepository
 {
@@ -21,7 +22,7 @@ class AdvertisementRepository
         $user = Auth::user();
         $advertisements = Advertisement::where('created_by', $user->id)
             ->orderByDesc('id')
-            ->paginate(5);
+            ->paginate(20);
 
         return new AdvertisementCollection($advertisements);
     }

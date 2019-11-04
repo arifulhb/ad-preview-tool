@@ -51291,18 +51291,33 @@ function (_Component) {
     key: "renderPaginationPageItems",
     value: function renderPaginationPageItems(pagination) {
       if (pagination.total >= pagination.count) {
-        var until = pagination.total / pagination.count + 1;
-        console.log('until ', until);
-        var page = 0;
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, lodash__WEBPACK_IMPORTED_MODULE_3___default.a.range(1, until).map(function (v) {
-          page++;
+        // pagination logic taken from https://stackoverflow.com/a/11274294
+        var startPage = pagination.current_page - 1;
+        var endPage = pagination.current_page + 1;
+        var pages = [];
+
+        if (startPage <= 0) {
+          console.log('here');
+          endPage -= startPage - 1;
+          startPage = 1;
+        }
+
+        if (endPage > pagination.total_pages) {
+          endPage = pagination.total_pages;
+        }
+
+        for (var i = startPage; i <= endPage; i++) {
+          pages.push(i);
+        }
+
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, pages.map(function (p) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-            key: "page_".concat(page),
+            key: "page_".concat(p),
             className: "pagination__body--item page-item"
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
             className: "page-link pagination__body--item",
             href: "#"
-          }, page));
+          }, p));
         }));
       }
     }
