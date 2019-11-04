@@ -46,6 +46,10 @@ export default class MyAdvertisements extends Component {
     })
   }
 
+  /**
+   *  Will be used in table
+   * @param bool isPublished
+   */
   renderPublished (isPublished) {
     if (isPublished === true) {
       return (
@@ -58,6 +62,10 @@ export default class MyAdvertisements extends Component {
     }
   }
 
+  /**
+   *  will be used in table
+   * @param string visibility
+   */
   renderVisibility (visibility) {
     if (visibility === 'None') {
       return <label className='text-muted'><i className='fa fa-user-lock' /> {visibility}</label>
