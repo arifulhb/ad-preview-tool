@@ -51126,6 +51126,153 @@ __webpack_require__(/*! ./components/MyAdvertisements */ "./resources/js/compone
 
 __webpack_require__(/*! ./components/Preview */ "./resources/js/components/Preview.js");
 
+__webpack_require__(/*! ./components/EditAdvertisement */ "./resources/js/components/EditAdvertisement.js");
+
+/***/ }),
+
+/***/ "./resources/js/components/EditAdvertisement.js":
+/*!******************************************************!*\
+  !*** ./resources/js/components/EditAdvertisement.js ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return EditAdvertisement; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _GoogleTextAd__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./GoogleTextAd */ "./resources/js/components/GoogleTextAd.js");
+/* harmony import */ var _GoogleTextAdForm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./GoogleTextAdForm */ "./resources/js/components/GoogleTextAdForm.js");
+/* harmony import */ var _utils_api__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../utils/api */ "./resources/js/utils/api.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_5__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+
+
+
+var EditAdvertisement =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(EditAdvertisement, _Component);
+
+  function EditAdvertisement(props) {
+    var _this;
+
+    _classCallCheck(this, EditAdvertisement);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(EditAdvertisement).call(this, props));
+
+    _defineProperty(_assertThisInitialized(_this), "formUpdated", function (data) {
+      var adv = _objectSpread({}, _this.state.advertisement);
+
+      adv.advertisement[data.name] = data.value;
+
+      _this.setState({
+        advertisement: adv
+      }, function () {
+        _this.renderGoogleTextAd(_this.state.advertisement);
+      });
+    });
+
+    _this.state = {
+      advertisement: null
+    };
+
+    _this.getAdvertisementData(props.id);
+
+    _this.formUpdated.bind(_assertThisInitialized(_this));
+
+    return _this;
+  }
+
+  _createClass(EditAdvertisement, [{
+    key: "renderGoogleTextAd",
+    value: function renderGoogleTextAd(ad) {
+      if (ad !== null) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_GoogleTextAd__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          ad: ad.advertisement
+        });
+      }
+    }
+  }, {
+    key: "getAdvertisementData",
+    value: function getAdvertisementData(id) {
+      var _this2 = this;
+
+      _utils_api__WEBPACK_IMPORTED_MODULE_4__["default"].get("/advertise/".concat(id)).then(function (res) {
+        _this2.setState({
+          advertisement: res.data
+        }, function () {});
+      })["catch"](function (error) {
+        console.log('getAdvertisementData::error ', error);
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var advertise = this.state.advertisement;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row mb-4 mt-5"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-lg-6"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        key: "preview-wrapper",
+        className: "preview-wrapper"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, "Preview")), this.renderGoogleTextAd(this.state.advertisement))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-lg-6"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, "Edit Panel: "), this.state.advertisement !== null ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        className: "badge badge-success"
+      }, advertise.advertisementType) : ''), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        key: "form-wrapper",
+        className: "form-wrapper"
+      }, this.state.advertisement !== null ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_GoogleTextAdForm__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        submitToEdit: this.formUpdated,
+        ad: advertise.advertisement
+      }) : 'No records found to edit')));
+    }
+  }]);
+
+  return EditAdvertisement;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+
+
+if (document.getElementById('edit-advertisement')) {
+  var el = document.getElementById('edit-advertisement');
+  var props = Object.assign({}, el.dataset);
+  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(EditAdvertisement, props), document.getElementById('edit-advertisement'));
+}
+
 /***/ }),
 
 /***/ "./resources/js/components/Example.js":
@@ -51216,11 +51363,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return GoogleTextAd; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _utils_api__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/api */ "./resources/js/utils/api.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_3__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -51241,9 +51383,6 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
-
-
-
 var GoogleTextAd =
 /*#__PURE__*/
 function (_Component) {
@@ -51256,7 +51395,6 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(GoogleTextAd).call(this, props));
     console.log('GTA props ', props);
-    _this.state = {};
     return _this;
   }
 
@@ -51272,27 +51410,141 @@ function (_Component) {
         href: "#"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "headline_text_1"
-      }, "Awesome Headline 1"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+      }, this.props.ad.headline1), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "headline_text_2 pipe"
-      }, "Awesome Headline 2"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+      }, this.props.ad.headline2), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "headline_text_3 pipe"
-      }, "Awesome Headline 3"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, this.props.ad.headline3))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "display-url"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fa fa-ad"
       }), " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "display-url_text"
-      }, "www.example.com/ppc-services")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, this.props.ad.displayUrl)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "description"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "description__block_1"
-      }, "Create Some Amazing Ad Copy Tod."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+      }, this.props.ad.description1), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "description__block_2 pipe"
-      }, "Make Your Ad Stand Out!")));
+      }, this.props.ad.description2)));
     }
   }]);
 
   return GoogleTextAd;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/GoogleTextAdForm.js":
+/*!*****************************************************!*\
+  !*** ./resources/js/components/GoogleTextAdForm.js ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return GoogleTextAdForm; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _partials_FormField__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./partials/FormField */ "./resources/js/components/partials/FormField.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+var GoogleTextAdForm =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(GoogleTextAdForm, _Component);
+
+  function GoogleTextAdForm(props) {
+    var _this;
+
+    _classCallCheck(this, GoogleTextAdForm);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(GoogleTextAdForm).call(this, props));
+
+    _defineProperty(_assertThisInitialized(_this), "formFieldCallback", function (name, value) {
+      _this.props.submitToEdit({
+        'name': name,
+        'value': value
+      });
+    });
+
+    console.log('GoogleTextAdForm props ', props);
+    return _this;
+  }
+
+  _createClass(GoogleTextAdForm, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_partials_FormField__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        parentCallback: this.formFieldCallback,
+        name: "headline1",
+        title: "Headline 1",
+        maxLength: "30",
+        defaultValue: this.props.ad.headline1
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_partials_FormField__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        parentCallback: this.formFieldCallback,
+        name: "headline2",
+        title: "Headline 2",
+        maxLength: "30",
+        defaultValue: this.props.ad.headline2
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_partials_FormField__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        parentCallback: this.formFieldCallback,
+        name: "headline3",
+        title: "Headline 3",
+        maxLength: "39",
+        defaultValue: this.props.ad.headline3
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_partials_FormField__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        parentCallback: this.formFieldCallback,
+        name: "description1",
+        title: "Description 1",
+        maxLength: "90",
+        defaultValue: this.props.ad.description1
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_partials_FormField__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        parentCallback: this.formFieldCallback,
+        name: "description2",
+        title: "Description 2",
+        maxLength: "90",
+        defaultValue: this.props.ad.description1
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_partials_FormField__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        parentCallback: this.formFieldCallback,
+        name: "displayUrl",
+        title: "Display Url",
+        maxLength: "35",
+        defaultValue: this.props.ad.displayUrl
+      }));
+    }
+  }]);
+
+  return GoogleTextAdForm;
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
 
@@ -51708,6 +51960,100 @@ if (document.getElementById('my-preview')) {
   var props = Object.assign({}, el.dataset);
   react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Preview, props), document.getElementById('my-preview'));
 }
+
+/***/ }),
+
+/***/ "./resources/js/components/partials/FormField.js":
+/*!*******************************************************!*\
+  !*** ./resources/js/components/partials/FormField.js ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return FormField; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+var FormField =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(FormField, _Component);
+
+  function FormField(props) {
+    var _this;
+
+    _classCallCheck(this, FormField);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(FormField).call(this, props));
+
+    _defineProperty(_assertThisInitialized(_this), "handleSendData", function (event) {
+      event.preventDefault();
+      var input = _this.refs.input; // console.log(input.name)
+
+      _this.props.parentCallback(input.name, input.value.trim());
+    });
+
+    _this.state = {
+      value: null
+    };
+
+    _this.handleSendData.bind(_assertThisInitialized(_this));
+
+    return _this;
+  }
+
+  _createClass(FormField, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "input-group mb-3"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "input-group-prepend"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "input-group-text"
+      }, this.props.title)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        ref: "input",
+        type: "text",
+        name: "".concat(this.props.name),
+        onChange: this.handleSendData,
+        className: "form-control",
+        maxLength: this.props.maxLength,
+        defaultValue: this.props.defaultValue
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "input-group-append"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "input-group-text"
+      }, this.props.maxLength)));
+    }
+  }]);
+
+  return FormField;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+
 
 /***/ }),
 
