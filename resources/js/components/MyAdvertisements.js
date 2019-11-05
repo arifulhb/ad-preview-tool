@@ -79,6 +79,7 @@ export default class MyAdvertisements extends Component {
    */
   renderTableRow () {
     if (!_.isNull(this.state.advertisements)) {
+      console.log('render tabl row')
       return (
         <tbody>
           {
@@ -94,7 +95,13 @@ export default class MyAdvertisements extends Component {
                   <td>...</td>
                   <td className='text-right'>
                     <div className='btn-group btn-group-sm' role='group'>
-                      <button type='button' className='btn btn-link'>View</button>
+                      <a
+                        className='btn btn-link'
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        href={`/advertise/preview/${row.id}`}
+                      > Preview
+                      </a>
                       <div className='btn-group btn-group-sm' role='group'>
                         <button
                           id='btnGroupDrop1'
