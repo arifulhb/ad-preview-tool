@@ -51363,6 +51363,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return GoogleTextAd; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -51383,24 +51385,22 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var GoogleTextAd =
 /*#__PURE__*/
 function (_Component) {
   _inherits(GoogleTextAd, _Component);
 
-  function GoogleTextAd(props) {
-    var _this;
-
+  function GoogleTextAd() {
     _classCallCheck(this, GoogleTextAd);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(GoogleTextAd).call(this, props));
-    console.log('GTA props ', props);
-    return _this;
+    return _possibleConstructorReturn(this, _getPrototypeOf(GoogleTextAd).apply(this, arguments));
   }
 
   _createClass(GoogleTextAd, [{
     key: "render",
     value: function render() {
+      var ad = this.props.ad;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "google-text-ad mb-5"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -51410,23 +51410,23 @@ function (_Component) {
         href: "#"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "headline_text_1"
-      }, this.props.ad.headline1), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "headline_text_2 pipe"
-      }, this.props.ad.headline2), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "headline_text_3 pipe"
-      }, this.props.ad.headline3))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, ad.headline1), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "headline_text_2 ".concat(!lodash__WEBPACK_IMPORTED_MODULE_1___default.a.isEmpty(ad.headline2) ? 'pipe' : '')
+      }, ad.headline2), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "headline_text_3 ".concat(!lodash__WEBPACK_IMPORTED_MODULE_1___default.a.isEmpty(ad.headline3) ? 'pipe' : '')
+      }, ad.headline3))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "display-url"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fa fa-ad"
       }), " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "display-url_text"
-      }, this.props.ad.displayUrl)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, ad.displayUrl)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "description"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "description__block_1"
-      }, this.props.ad.description1), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "description__block_2 pipe"
-      }, this.props.ad.description2)));
+      }, ad.description1), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "description__block_2 ".concat(!lodash__WEBPACK_IMPORTED_MODULE_1___default.a.isEmpty(ad.description2) ? 'pipe' : '')
+      }, ad.description2)));
     }
   }]);
 
@@ -51533,7 +51533,7 @@ function (_Component) {
         name: "description2",
         title: "Description 2",
         maxLength: "90",
-        defaultValue: this.props.ad.description1
+        defaultValue: this.props.ad.description2
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_partials_FormField__WEBPACK_IMPORTED_MODULE_1__["default"], {
         parentCallback: this.formFieldCallback,
         name: "displayUrl",

@@ -52,7 +52,7 @@ export default class GoogleTextAdForm extends Component {
           name='description2'
           title='Description 2'
           maxLength='90'
-          defaultValue={this.props.ad.description1}
+          defaultValue={this.props.ad.description2}
         />
         <FormField
           parentCallback={this.formFieldCallback}
