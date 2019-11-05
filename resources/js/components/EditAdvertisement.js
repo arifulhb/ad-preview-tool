@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import GoogleTextAd from './GoogleTextAd'
 import GoogleTextAdForm from './GoogleTextAdForm'
-import axios from 'axios'
 import api from '../utils/api'
 import _ from 'lodash'
 
@@ -11,7 +10,8 @@ export default class EditAdvertisement extends Component {
     super(props)
 
     this.state = {
-      advertisement: null
+      advertisement: null,
+      message: ''
     }
     this.getAdvertisementData(props.id)
     this.handleSave.bind(this)
@@ -49,17 +49,26 @@ export default class EditAdvertisement extends Component {
       title: ad.title,
       type: 'GoogleTextAd'
     }
-    // console.log('ad: ', this.state.advertisement)
-    console.log('prepareData ', prepareData)
 
-    let url = `/advertise/update/${this.state.advertisement.id}`
-    console.log('url; ', url)
-    api.post(url, prepareData)
-      .then(function (response) {
+    this.setState({
+      message: 'Saving data'
+    })
+
+    api.post(`/advertise/update/${this.state.advertisement.id}`, prepareData)
+      .then((response) => {
         console.log(response);
+        this.setState({
+          message: 'Saved Successfully!!'
+        })
+
+        setTimeout(()=> {
+          this.setState({
+            message: ''
+          })
+        }, 2000)
       })
-      .catch(function (error) {
-        console.log(error);
+      .catch((error) => {
+        console.log('Update Error',error);
       });
   }
 
@@ -92,13 +101,21 @@ export default class EditAdvertisement extends Component {
           </div>
         </div>
         <div className='col-lg-6'>
-          <p><strong>Edit Panel: </strong>
-            {
-              this.state.advertisement !== null
-                ? <label className='badge badge-success'>{advertise.advertisementType}</label>
-                : ''
-            }
-          </p>
+          <div className='row'>
+            <div className='col-lg-6 text-left'>
+              <strong>Edit Panel: </strong>
+              {
+                this.state.advertisement !== null
+                  ? <label className='badge badge-success'>{advertise.advertisementType}</label>
+                  : ''
+              }
+            </div>
+            <div className='col-lg-6 text-right'>
+              <span className={`${this.state.message !== '' ? 'badge badge-success' : ''}`}>
+                {this.state.message}
+              </span>
+            </div>
+          </div>
           <div key='form-wrapper' className='form-wrapper'>
             {
               this.state.advertisement !== null

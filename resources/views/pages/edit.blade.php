@@ -4,6 +4,7 @@
     <div class="container-fluid">
         <div class="page-header">
             <h1 class="mt-4">{{ __('Edit Advertisement') }}</h1>
+            <a href="{{ url('/home') }}"><i class="fa fa-arrow-circle-left"></i> Back</a>
         </div>
 
         <div id="edit-advertisement" data-id={{ $id }}>

@@ -51146,11 +51146,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _GoogleTextAd__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./GoogleTextAd */ "./resources/js/components/GoogleTextAd.js");
 /* harmony import */ var _GoogleTextAdForm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./GoogleTextAdForm */ "./resources/js/components/GoogleTextAdForm.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _utils_api__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../utils/api */ "./resources/js/utils/api.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _utils_api__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../utils/api */ "./resources/js/utils/api.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_5__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
@@ -51182,7 +51180,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-
 var EditAdvertisement =
 /*#__PURE__*/
 function (_Component) {
@@ -51206,15 +51203,26 @@ function (_Component) {
         display_url: ad.displayUrl,
         title: ad.title,
         type: 'GoogleTextAd'
-      }; // console.log('ad: ', this.state.advertisement)
+      };
 
-      console.log('prepareData ', prepareData);
-      var url = "/advertise/update/".concat(_this.state.advertisement.id);
-      console.log('url; ', url);
-      _utils_api__WEBPACK_IMPORTED_MODULE_5__["default"].post(url, prepareData).then(function (response) {
+      _this.setState({
+        message: 'Saving data'
+      });
+
+      _utils_api__WEBPACK_IMPORTED_MODULE_4__["default"].post("/advertise/update/".concat(_this.state.advertisement.id), prepareData).then(function (response) {
         console.log(response);
+
+        _this.setState({
+          message: 'Saved Successfully!!'
+        });
+
+        setTimeout(function () {
+          _this.setState({
+            message: ''
+          });
+        }, 2000);
       })["catch"](function (error) {
-        console.log(error);
+        console.log('Update Error', error);
       });
     });
 
@@ -51236,7 +51244,8 @@ function (_Component) {
     });
 
     _this.state = {
-      advertisement: null
+      advertisement: null,
+      message: ''
     };
 
     _this.getAdvertisementData(props.id);
@@ -51264,7 +51273,7 @@ function (_Component) {
     value: function getAdvertisementData(id) {
       var _this2 = this;
 
-      _utils_api__WEBPACK_IMPORTED_MODULE_5__["default"].get("/advertise/".concat(id)).then(function (res) {
+      _utils_api__WEBPACK_IMPORTED_MODULE_4__["default"].get("/advertise/".concat(id)).then(function (res) {
         _this2.setState({
           advertisement: res.data
         }, function () {});
@@ -51289,9 +51298,17 @@ function (_Component) {
         className: "preview-wrapper"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, "Preview")), this.renderGoogleTextAd(this.state.advertisement))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-lg-6"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, "Edit Panel: "), this.state.advertisement !== null ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-lg-6 text-left"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, "Edit Panel: "), this.state.advertisement !== null ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         className: "badge badge-success"
       }, advertise.advertisementType) : ''), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-lg-6 text-right"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "".concat(this.state.message !== '' ? 'badge badge-success' : '')
+      }, this.state.message))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         key: "form-wrapper",
         className: "form-wrapper"
       }, this.state.advertisement !== null ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_GoogleTextAdForm__WEBPACK_IMPORTED_MODULE_3__["default"], {
