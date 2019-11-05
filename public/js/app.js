@@ -51146,9 +51146,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _GoogleTextAd__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./GoogleTextAd */ "./resources/js/components/GoogleTextAd.js");
 /* harmony import */ var _GoogleTextAdForm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./GoogleTextAdForm */ "./resources/js/components/GoogleTextAdForm.js");
-/* harmony import */ var _utils_api__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../utils/api */ "./resources/js/utils/api.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _utils_api__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../utils/api */ "./resources/js/utils/api.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_6__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
@@ -51180,6 +51182,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
 var EditAdvertisement =
 /*#__PURE__*/
 function (_Component) {
@@ -51191,6 +51194,34 @@ function (_Component) {
     _classCallCheck(this, EditAdvertisement);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(EditAdvertisement).call(this, props));
+
+    _defineProperty(_assertThisInitialized(_this), "handleSave", function () {
+      var ad = _this.state.advertisement.advertisement;
+      var prepareData = {
+        headline_1: ad.headline1,
+        headline_2: ad.headline2,
+        headline_3: ad.headline3,
+        description_1: ad.description1,
+        description_2: ad.description2,
+        display_url: ad.displayUrl,
+        title: ad.title,
+        type: 'GoogleTextAd'
+      }; // console.log('ad: ', this.state.advertisement)
+
+      console.log('prepareData ', prepareData);
+      var url = "/advertise/update/".concat(_this.state.advertisement.id);
+      console.log('url; ', url);
+      _utils_api__WEBPACK_IMPORTED_MODULE_5__["default"].post(url, prepareData).then(function (response) {
+        console.log(response);
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "markPublish", function (data) {// let prepareData = this.state.advertisement.advertisement;
+      // console.log('mark publish: ', prepareData)
+      // todo save the publish data
+    });
 
     _defineProperty(_assertThisInitialized(_this), "formUpdated", function (data) {
       var adv = _objectSpread({}, _this.state.advertisement);
@@ -51209,6 +51240,10 @@ function (_Component) {
     };
 
     _this.getAdvertisementData(props.id);
+
+    _this.handleSave.bind(_assertThisInitialized(_this));
+
+    _this.markPublish.bind(_assertThisInitialized(_this));
 
     _this.formUpdated.bind(_assertThisInitialized(_this));
 
@@ -51229,7 +51264,7 @@ function (_Component) {
     value: function getAdvertisementData(id) {
       var _this2 = this;
 
-      _utils_api__WEBPACK_IMPORTED_MODULE_4__["default"].get("/advertise/".concat(id)).then(function (res) {
+      _utils_api__WEBPACK_IMPORTED_MODULE_5__["default"].get("/advertise/".concat(id)).then(function (res) {
         _this2.setState({
           advertisement: res.data
         }, function () {});
@@ -51237,6 +51272,10 @@ function (_Component) {
         console.log('getAdvertisementData::error ', error);
       });
     }
+    /**
+     * Send data to api for saving
+     */
+
   }, {
     key: "render",
     value: function render() {
@@ -51257,6 +51296,8 @@ function (_Component) {
         className: "form-wrapper"
       }, this.state.advertisement !== null ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_GoogleTextAdForm__WEBPACK_IMPORTED_MODULE_3__["default"], {
         submitToEdit: this.formUpdated,
+        submitToPublish: this.markPublish,
+        submitToSave: this.handleSave,
         ad: advertise.advertisement
       }) : 'No records found to edit')));
     }
@@ -51488,6 +51529,18 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(GoogleTextAdForm).call(this, props));
 
+    _defineProperty(_assertThisInitialized(_this), "submitToSave", function (event) {
+      event.preventDefault();
+
+      _this.props.submitToSave();
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "submitToPublish", function (event) {
+      event.preventDefault();
+
+      _this.props.submitToPublish(false);
+    });
+
     _defineProperty(_assertThisInitialized(_this), "formFieldCallback", function (name, value) {
       _this.props.submitToEdit({
         'name': name,
@@ -51502,8 +51555,10 @@ function (_Component) {
   _createClass(GoogleTextAdForm, [{
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "form"
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-lg-12"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_partials_FormField__WEBPACK_IMPORTED_MODULE_1__["default"], {
         parentCallback: this.formFieldCallback,
         name: "headline1",
@@ -51540,7 +51595,39 @@ function (_Component) {
         title: "Display Url",
         maxLength: "35",
         defaultValue: this.props.ad.displayUrl
-      }));
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row jumbotron jumbotron-fluid  pt-3 pb-3"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-lg-12"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_partials_FormField__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        parentCallback: this.formFieldCallback,
+        name: "title",
+        title: "Advertisement Title",
+        maxLength: "200",
+        defaultValue: this.props.ad.title
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-lg-6 col-md-6 col-sm-6 text-left"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-group row"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-sm-10"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: this.submitToSave,
+        type: "button",
+        className: "btn btn-primary"
+      }, "Save")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-lg-6 col-md-6 col-sm-6 text-right"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-sm-12"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: this.submitToPublish,
+        type: "button",
+        className: "btn btn-warning"
+      }, "Mark Draft"))))));
     }
   }]);
 
@@ -51702,11 +51789,10 @@ function (_Component) {
       var _this4 = this;
 
       if (!lodash__WEBPACK_IMPORTED_MODULE_3___default.a.isNull(this.state.advertisements)) {
-        console.log('render tabl row');
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, this.state.advertisements.map(function (row) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
             key: "tr_".concat(row.id)
-          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.id), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.advertisement.publisher !== null ? row.advertisement.publisher.name : ''), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.advertisementType), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, _this4.renderPublished(row.isPublished)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, _this4.renderVisibility(row.visibility)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "..."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.id), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.advertisement.publisher !== null ? row.advertisement.publisher.name : ''), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.advertisementType), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.advertisement.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, _this4.renderPublished(row.isPublished)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, _this4.renderVisibility(row.visibility)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "..."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
             className: "text-right"
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             className: "btn-group btn-group-sm",

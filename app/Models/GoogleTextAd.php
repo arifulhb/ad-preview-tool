@@ -25,7 +25,7 @@ class GoogleTextAd extends Model
      * @var array
      */
     protected $fillable = ['headline_1', 'headline_2', 'headline_3',
-    'description_1', 'description_2', 'display_url', 'publisher_id'];
+    'description_1', 'description_2', 'display_url', 'publisher_id', 'title'];
 
     /**
      * Get the advertisemant.

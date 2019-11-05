@@ -79,7 +79,6 @@ export default class MyAdvertisements extends Component {
    */
   renderTableRow () {
     if (!_.isNull(this.state.advertisements)) {
-      console.log('render tabl row')
       return (
         <tbody>
           {
@@ -89,7 +88,7 @@ export default class MyAdvertisements extends Component {
                   <td>{row.id}</td>
                   <td>{row.advertisement.publisher !== null ? row.advertisement.publisher.name : ''}</td>
                   <td>{row.advertisementType}</td>
-                  <td>{row.title}</td>
+                  <td>{row.advertisement.title}</td>
                   <td>{this.renderPublished(row.isPublished)}</td>
                   <td>{this.renderVisibility(row.visibility)}</td>
                   <td>...</td>

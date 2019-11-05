@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import GoogleTextAd from './GoogleTextAd'
 import GoogleTextAdForm from './GoogleTextAdForm'
+import axios from 'axios'
 import api from '../utils/api'
 import _ from 'lodash'
 
@@ -13,6 +14,8 @@ export default class EditAdvertisement extends Component {
       advertisement: null
     }
     this.getAdvertisementData(props.id)
+    this.handleSave.bind(this)
+    this.markPublish.bind(this)
     this.formUpdated.bind(this)
   }
 
@@ -29,6 +32,44 @@ export default class EditAdvertisement extends Component {
     }).catch((error) => {
       console.log('getAdvertisementData::error ', error)
     })
+  }
+
+  /**
+   * Send data to api for saving
+   */
+  handleSave = () => {
+    const ad = this.state.advertisement.advertisement;
+    let prepareData = {
+      headline_1: ad.headline1,
+      headline_2: ad.headline2,
+      headline_3: ad.headline3,
+      description_1: ad.description1,
+      description_2: ad.description2,
+      display_url: ad.displayUrl,
+      title: ad.title,
+      type: 'GoogleTextAd'
+    }
+    // console.log('ad: ', this.state.advertisement)
+    console.log('prepareData ', prepareData)
+
+    let url = `/advertise/update/${this.state.advertisement.id}`
+    console.log('url; ', url)
+    api.post(url, prepareData)
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
+  /**
+   * Send isPublished status to api for status change
+   */
+  markPublish = (data) => {
+    // let prepareData = this.state.advertisement.advertisement;
+    // console.log('mark publish: ', prepareData)
+    // todo save the publish data
   }
 
   formUpdated = (data) => {
@@ -61,7 +102,12 @@ export default class EditAdvertisement extends Component {
           <div key='form-wrapper' className='form-wrapper'>
             {
               this.state.advertisement !== null
-                ? <GoogleTextAdForm submitToEdit={this.formUpdated} ad={advertise.advertisement} />
+                ? <GoogleTextAdForm
+                    submitToEdit={this.formUpdated}
+                    submitToPublish={this.markPublish}
+                    submitToSave={this.handleSave}
+                    ad={advertise.advertisement}
+                  />
                 : 'No records found to edit'
             }
           </div>
