@@ -114,7 +114,9 @@ export default class MyAdvertisements extends Component {
                           Action
                         </button>
                         <div className='dropdown-menu' aria-labelledby='btnGroupDrop1'>
-                          <a className='dropdown-item' href='#'><i className='fa fa-edit' /> Edit</a>
+                          <a className='dropdown-item' href={`/advertise/edit/${row.id}`}>
+                            <i className='fa fa-edit' /> Edit
+                          </a>
                           <a className='dropdown-item' href='#'><i className='fa fa-trash' /> Delete</a>
                         </div>
                       </div>

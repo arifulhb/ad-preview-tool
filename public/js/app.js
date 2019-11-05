@@ -51731,7 +51731,7 @@ function (_Component) {
             "aria-labelledby": "btnGroupDrop1"
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
             className: "dropdown-item",
-            href: "#"
+            href: "/advertise/edit/".concat(row.id)
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
             className: "fa fa-edit"
           }), " Edit"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
