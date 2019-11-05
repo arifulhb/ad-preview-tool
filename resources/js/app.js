@@ -15,3 +15,4 @@
 require('./components/Example')
 require('./components/MyAdvertisements')
 require('./components/Preview')
+require('./components/EditAdvertisement')

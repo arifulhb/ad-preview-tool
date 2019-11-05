@@ -8,6 +8,16 @@ class AdvertiseController extends Controller
 {
 
     /**
+     * Edit Advertisement
+     *
+     * @return void
+     */
+    public function edit(int $id)
+    {
+        return view('pages.edit', ['id' => $id]);
+    }
+
+    /**
      * Preview an advertisement
      *
      * @return void
