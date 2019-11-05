@@ -99,7 +99,7 @@ export default class MyAdvertisements extends Component {
                         className='btn btn-link'
                         target='_blank'
                         rel='noopener noreferrer'
-                        href={`/advertise/preview/${row.id}`}
+                        href={`/advertise/preview?ids=${row.id}`}
                       > Preview
                       </a>
                       <div className='btn-group btn-group-sm' role='group'>

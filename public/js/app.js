@@ -51463,7 +51463,7 @@ function (_Component) {
             className: "btn btn-link",
             target: "_blank",
             rel: "noopener noreferrer",
-            href: "/advertise/preview/".concat(row.id)
+            href: "/advertise/preview?ids=".concat(row.id)
           }, " Preview"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             className: "btn-group btn-group-sm",
             role: "group"
