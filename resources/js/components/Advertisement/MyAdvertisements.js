@@ -86,6 +86,16 @@ export default class MyAdvertisements extends Component {
     }
   }
 
+  renderShareButton (isPublished, id) {
+    if (isPublished) {
+      return (
+        <button className='btn btn-link' onClick=''>
+          <i className='fa fa-share' />&nbsp;Add to Share
+        </button>
+      )
+    }
+  }
+
   /**
    * Generate Table Row
    */
@@ -105,6 +115,7 @@ export default class MyAdvertisements extends Component {
                   <td>{row.lastUpdate}</td>
                   <td className='text-right'>
                     <div className='btn-group btn-group-sm' role='group'>
+                      {this.renderShareButton(row.isPublished, row.id)}
                       <a
                         className='btn btn-link'
                         target='_blank'

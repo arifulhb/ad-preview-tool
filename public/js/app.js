@@ -51678,6 +51678,18 @@ function (_Component) {
         });
       }
     }
+  }, {
+    key: "renderShareButton",
+    value: function renderShareButton(isPublished, id) {
+      if (isPublished) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          className: "btn btn-link",
+          onClick: ""
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+          className: "fa fa-share"
+        }), "\xA0Add to Share");
+      }
+    }
     /**
      * Generate Table Row
      */
@@ -51696,7 +51708,7 @@ function (_Component) {
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             className: "btn-group btn-group-sm",
             role: "group"
-          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+          }, _this5.renderShareButton(row.isPublished, row.id), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
             className: "btn btn-link",
             target: "_blank",
             rel: "noopener noreferrer",
