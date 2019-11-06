@@ -52140,16 +52140,40 @@ function (_Component) {
   }
 
   _createClass(Share, [{
+    key: "handleCopyToClipboard",
+    value: function handleCopyToClipboard(url) {
+      var text = document.createElement('textarea');
+      text.textContent = url;
+      document.body.appendChild(text);
+      text.select();
+
+      try {
+        return document.execCommand('copy');
+      } catch (ex) {
+        return false;
+      } finally {
+        document.body.removeChild(text);
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
+      var _this = this;
+
       var ids = this.props.ads;
+      var url = "".concat(window.location.protocol, "//").concat(window.location.host, "/advertise/preview?ads=").concat(ids);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "share-builder row mb-3"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-lg-10 col-md-10 col-sm-12"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Share URL:"), "\xA0", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("code", {
         style: codeStyle
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "".concat(window.location.protocol, "//").concat(window.location.host, "/advertise/preview?ads=").concat(ids)))));
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, url)), ids.length > 0 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "btn btn-copy btn-info btn-sm",
+        onClick: function onClick() {
+          return _this.handleCopyToClipboard(url);
+        }
+      }, "Copy URL") : ''));
     }
   }]);
 
