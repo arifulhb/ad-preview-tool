@@ -4,8 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+/**
+ * This Controller is to nevigate pages only.
+ */
 class AdvertiseController extends Controller
 {
+
+    /**
+     * New Advertisement page
+     *
+     * @return void
+     */
+    public function add () {
+        return view ('pages.add');
+    }
 
     /**
      * Edit Advertisement

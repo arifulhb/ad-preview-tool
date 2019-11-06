@@ -18,6 +18,7 @@ Route::get('/', function () {
 Route::get('/advertise/preview', 'AdvertiseController@preview');
 
 Route::group(['middleware' => 'auth'], function(){
+    Route::get('/advertise/new/', 'AdvertiseController@add');
     Route::get('/advertise/edit/{id}', 'AdvertiseController@edit');
 });
 Route::get('/home', 'HomeController@index')->name('home');
