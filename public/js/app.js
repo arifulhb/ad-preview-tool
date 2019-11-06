@@ -51587,7 +51587,8 @@ function (_Component) {
       advertisements: null,
       pagination: null,
       page: 1
-    };
+    }; // this.handleDelete.bind(this)
+
     return _this;
   }
 
@@ -51611,8 +51612,9 @@ function (_Component) {
         _this2.setState({
           advertisements: lodash__WEBPACK_IMPORTED_MODULE_3___default.a.values(res.data.data),
           pagination: res.data.pagination
-        }, function () {// console.log('table record updated')
         });
+      })["catch"](function (error) {
+        console.log('error: ', error);
       });
     }
     /**
@@ -51674,19 +51676,42 @@ function (_Component) {
       }
     }
     /**
+     * Delete Advertise
+     * @param int id
+     */
+
+  }, {
+    key: "handleDelete",
+    value: function handleDelete(id) {
+      var _this4 = this;
+
+      var answer = window.confirm('Are you sure to delete this item?');
+
+      if (answer) {
+        _utils_api__WEBPACK_IMPORTED_MODULE_2__["default"]["delete"]("/advertise/".concat(id), {}).then(function (response) {
+          if (response.status === 204) {
+            // reset the table
+            _this4.getAdvertisements(1);
+          }
+        })["catch"](function (error) {
+          console.log('del err ', error);
+        });
+      }
+    }
+    /**
      * Generate Table Row
      */
 
   }, {
     key: "renderTableRow",
     value: function renderTableRow() {
-      var _this4 = this;
+      var _this5 = this;
 
       if (!lodash__WEBPACK_IMPORTED_MODULE_3___default.a.isNull(this.state.advertisements)) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, this.state.advertisements.map(function (row) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
             key: "tr_".concat(row.id)
-          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.id), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.advertisement.publisher !== null ? row.advertisement.publisher.name : ''), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.advertisementType), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.advertisement.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, _this4.renderPublished(row.isPublished)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.lastUpdate), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.id), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.advertisement.publisher !== null ? row.advertisement.publisher.name : ''), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.advertisementType), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.advertisement.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, _this5.renderPublished(row.isPublished)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.lastUpdate), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
             className: "text-right"
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             className: "btn-group btn-group-sm",
@@ -51716,7 +51741,10 @@ function (_Component) {
             className: "fa fa-edit"
           }), " Edit"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
             className: "dropdown-item",
-            href: "#"
+            href: "#",
+            onClick: function onClick() {
+              return _this5.handleDelete(row.id);
+            }
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
             className: "fa fa-trash"
           }), " Delete"))))));
@@ -51736,7 +51764,7 @@ function (_Component) {
   }, {
     key: "renderPaginationPageItems",
     value: function renderPaginationPageItems(pagination) {
-      var _this5 = this;
+      var _this6 = this;
 
       if (pagination.total >= pagination.count) {
         // pagination logic taken from https://stackoverflow.com/a/11274294
@@ -51762,8 +51790,8 @@ function (_Component) {
             key: "page_".concat(p),
             className: "pagination__body--item page-item"
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-            onClick: _this5.setPageNumber.bind(_this5, p),
-            className: "page-link pagination__body--item ".concat(p === _this5.state.page ? 'bg-dark text-white' : ''),
+            onClick: _this6.setPageNumber.bind(_this6, p),
+            className: "page-link pagination__body--item ".concat(p === _this6.state.page ? 'bg-dark text-white' : ''),
             href: "#"
           }, p));
         }));

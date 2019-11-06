@@ -11,6 +11,8 @@ export default class MyAdvertisements extends Component {
       pagination: null,
       page: 1
     }
+
+    // this.handleDelete.bind(this)
   }
 
   componentDidMount () {
@@ -28,9 +30,10 @@ export default class MyAdvertisements extends Component {
         this.setState({
           advertisements: _.values(res.data.data),
           pagination: res.data.pagination
-        }, () => {
-          // console.log('table record updated')
         })
+      })
+      .catch((error) => {
+        console.log('error: ', error)
       })
   }
 
@@ -75,6 +78,27 @@ export default class MyAdvertisements extends Component {
   }
 
   /**
+   * Delete Advertise
+   * @param int id
+   */
+  handleDelete (id) {
+    const answer = window.confirm('Are you sure to delete this item?')
+
+    if (answer) {
+      api.delete(`/advertise/${id}`, {})
+        .then((response) => {
+          if (response.status === 204) {
+            // reset the table
+            this.getAdvertisements(1)
+          }
+        })
+        .catch((error) => {
+          console.log('del err ', error)
+        })
+    }
+  }
+
+  /**
    * Generate Table Row
    */
   renderTableRow () {
@@ -115,7 +139,13 @@ export default class MyAdvertisements extends Component {
                           <a className='dropdown-item' href={`/advertise/edit/${row.id}`}>
                             <i className='fa fa-edit' /> Edit
                           </a>
-                          <a className='dropdown-item' href='#'><i className='fa fa-trash' /> Delete</a>
+                          <a
+                            className='dropdown-item'
+                            href='#'
+                            onClick={() => this.handleDelete(row.id)}
+                          >
+                            <i className='fa fa-trash' /> Delete
+                          </a>
                         </div>
                       </div>
                     </div>
