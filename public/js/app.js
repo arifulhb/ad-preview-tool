@@ -51829,7 +51829,7 @@ function (_Component) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, this.state.advertisements.map(function (row) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
             key: "tr_".concat(row.id)
-          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.id), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.advertisement.publisher !== null ? row.advertisement.publisher.name : ''), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.advertisementType), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.advertisement.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, _this4.renderPublished(row.isPublished)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, _this4.renderVisibility(row.visibility)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "..."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.id), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.advertisement.publisher !== null ? row.advertisement.publisher.name : ''), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.advertisementType), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.advertisement.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, _this4.renderPublished(row.isPublished)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.lastUpdate), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
             className: "text-right"
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             className: "btn-group btn-group-sm",
@@ -51965,8 +51965,6 @@ function (_Component) {
       }, "Title"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
         width: "5%"
       }, "Status"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
-        width: "5%"
-      }, "Visibility"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
         width: "8%"
       }, "Last Update"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
         width: "5%"

@@ -21,6 +21,7 @@ class AdvertisementRepository
     {
         $user = Auth::user();
         $advertisements = Advertisement::where('created_by', $user->id)
+            ->orderByDesc('updated_at')
             ->orderByDesc('id')
             ->paginate(10);
 

@@ -90,8 +90,7 @@ export default class MyAdvertisements extends Component {
                   <td>{row.advertisementType}</td>
                   <td>{row.advertisement.title}</td>
                   <td>{this.renderPublished(row.isPublished)}</td>
-                  <td>{this.renderVisibility(row.visibility)}</td>
-                  <td>...</td>
+                  <td>{row.lastUpdate}</td>
                   <td className='text-right'>
                     <div className='btn-group btn-group-sm' role='group'>
                       <a
@@ -228,7 +227,6 @@ export default class MyAdvertisements extends Component {
                 <th width='6%'>Type</th>
                 <th width='15%'>Title</th>
                 <th width='5%'>Status</th>
-                <th width='5%'>Visibility</th>
                 <th width='8%'>Last Update</th>
                 <th width='5%'>...</th>
               </tr>
