@@ -51656,26 +51656,6 @@ function (_Component) {
       }
     }
     /**
-     *  will be used in table
-     * @param string visibility
-     */
-
-  }, {
-    key: "renderVisibility",
-    value: function renderVisibility(visibility) {
-      if (visibility === 'None') {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-          className: "text-muted"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-          className: "fa fa-user-lock"
-        }), " ", visibility);
-      } else {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-          className: "fa fa-globe-asia text-success"
-        }), " ", visibility);
-      }
-    }
-    /**
      * Delete Advertise
      * @param int id
      */
