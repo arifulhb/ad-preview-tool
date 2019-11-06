@@ -25,6 +25,8 @@ Route::group([
     Route::post('login', 'UserController@login');
     Route::post('register', 'UserController@register');
 
+    // get the list of advertisements for preview
+    Route::post('preview', 'AdvertisementController@preview');
 });
 
 
@@ -37,7 +39,6 @@ Route::group([
     'prefix' => 'v1'
 ], function()
 {
-
     /**
      * GoogleTextAdvertisement Routes
      */
@@ -46,6 +47,7 @@ Route::group([
         Route::get('{id}', 'AdvertisementController@view');
         Route::post('create', 'AdvertisementController@create');
         Route::post('update/{id}', 'AdvertisementController@update');
+        Route::post('publish/{id}', 'AdvertisementController@publish');
         Route::delete('{id}', 'AdvertisementController@delete');
     });
 

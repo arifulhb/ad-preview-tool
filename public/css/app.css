@@ -10187,3 +10187,49 @@ body {
     margin-left: -15rem;
   }
 }
+
+.google-text-ad {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.headline {
+  height: 21px;
+}
+
+.headline__text,
+.headline__text:hover {
+  color: #1a0dab;
+  font-size: 18px;
+  font-style: normal;
+}
+
+.display-url {
+  height: 20px;
+  color: #006621;
+  font-size: 13px;
+}
+
+.display-url .fa {
+  font-size: 14px;
+}
+
+.display-url_text {
+  font-size: 14px;
+  margin-left: 2px;
+}
+
+.description {
+  font-size: small;
+  color: #545454;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  line-height: 1.428;
+}
+
+.pipe {
+  margin-left: 6px;
+}
+
+.pipe:before {
+  margin-right: 6px;
+  content: "|";
+}

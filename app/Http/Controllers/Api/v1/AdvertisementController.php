@@ -69,6 +69,48 @@ class AdvertisementController extends Controller
     }
 
     /**
+     * Set is_published true/false
+     *
+     * @param Request $request
+     * @param integer $id
+     * @return void
+     */
+    public function publish(Request $request, int $id)
+    {
+        $advertisementRepo = new AdvertisementRepository();
+        $data = $request->all();
+
+        $response = $advertisementRepo->setPublish($data, $id);
+
+        if ($response !== null) {
+            return response()->json($response['data'], $response['status_code']);
+        } else {
+            return response()->json(['message' => 'Resource not found'], 404);
+        }
+    }
+
+    /**
+     * Preview will get the list if ids and return maximum 3 latest results from ids
+     * @param Request $request
+     *
+     * @return void
+     */
+    public function preview(Request $request) {
+
+        $advertisementRepo = new AdvertisementRepository();
+        $ids = $request->input('ids');
+
+        $response = $advertisementRepo->getAdvertisementsForPreview($ids);
+
+        if ($response->count() > 0) {
+            return response()->json($response, 200);
+        } else {
+            return response()->json(['message' => 'Resource not found'], 404);
+        }
+
+    }
+
+    /**
      * View a specific advertisement
      *
      * @param int $id

@@ -21,8 +21,26 @@ class AdvertisementRepository
     {
         $user = Auth::user();
         $advertisements = Advertisement::where('created_by', $user->id)
+            ->orderByDesc('updated_at')
             ->orderByDesc('id')
             ->paginate(10);
+
+        return new AdvertisementCollection($advertisements);
+    }
+
+    /**
+     * Get Advertisements for preview
+     *
+     * @param array $ids
+     * @return void
+     */
+    public function getAdvertisementsForPreview(array $ids)
+    {
+        $advertisements = Advertisement::whereIn('id', $ids)
+            // ->where('is_published', true)  // @todo uncomment this
+            ->orderByDesc('id')
+            ->limit(3)
+            ->paginate();
 
         return new AdvertisementCollection($advertisements);
     }
@@ -55,6 +73,31 @@ class AdvertisementRepository
         $response = $advertisement->update($data, $id);
 
         return $response;
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param array $data
+     * @param integer $id
+     * @return void
+     */
+    public function setPublish(array $data, int $id)
+    {
+        $advertisement = Advertisement::find($id);
+
+        if ($advertisement) {
+            $advertisement->is_published = $data['is_published'];
+            $advertisement->save();
+
+            return [
+                'status_code' => 200,
+                'message' => 'Success',
+                'data' => new AdvertisementsResource($advertisement)
+            ];
+        } else {
+            return null;
+        }
     }
 
     /**

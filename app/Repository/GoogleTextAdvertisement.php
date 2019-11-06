@@ -2,10 +2,11 @@
 
 namespace App\Repository;
 
-use App\Http\Resources\Advertisement as AdvertisementsResource;
 use App\Contracts\AdvertisementContract;
+use App\Http\Resources\Advertisement as AdvertisementsResource;
 use App\Models\Advertisement;
 use App\Models\GoogleTextAd;
+use App\Models\Publisher;
 use Auth;
 
 class GoogleTextAdvertisement implements AdvertisementContract
@@ -19,9 +20,10 @@ class GoogleTextAdvertisement implements AdvertisementContract
     public function create(array $data)
     {
         $user = Auth::user();
+        $publisher = Publisher::where('slug', 'google')->first();
 
         $ad = new Advertisement();
-        $ad->title = $data['headline_1'];
+        $ad->title = $data['title'];
         $ad->created_by = $user->id;
         $ad->updated_by = $user->id;
         $ad->visibility = \VISIBILITY_NONE;
@@ -30,6 +32,7 @@ class GoogleTextAdvertisement implements AdvertisementContract
         $googleAdText->created_by = $user->id;
         $googleAdText->updated_by = $user->id;
         $googleAdText->advertise()->save($ad);
+        $googleAdText->publisher_id = $publisher->id;
         $googleAdText->save();
 
         return new AdvertisementsResource($ad);
