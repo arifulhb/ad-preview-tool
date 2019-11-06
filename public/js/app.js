@@ -51712,6 +51712,13 @@ function (_Component) {
         });
       }
     }
+    /**
+     * Print the add to share button on table row.
+     *
+     * @param bool isPublished
+     * @param int id
+     */
+
   }, {
     key: "renderShareButton",
     value: function renderShareButton(isPublished, id) {
@@ -51856,12 +51863,61 @@ function (_Component) {
         }, "Last"))));
       }
     }
+    /**
+     * remove elements from shares list
+     * @param int id
+     */
+
+  }, {
+    key: "handleRemoveShare",
+    value: function handleRemoveShare(id) {
+      var shares = _toConsumableArray(this.state.shares);
+
+      shares.splice(shares.indexOf(id), 1);
+      this.setState({
+        shares: shares
+      });
+    }
+    /**
+     * print list of buttons to remove sharable id
+     */
+
+  }, {
+    key: "renderRemoveShareable",
+    value: function renderRemoveShareable() {
+      var _this8 = this;
+
+      if (this.state.shares.length > 0) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "col-lg-4 col-md-12 col-sm-12 text-right"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+          className: "text-warning"
+        }, "Remove Sharable ids"), "\xA0", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "btn-group btn-group-sm",
+          role: "group"
+        }, this.state.shares.map(function (item) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+            onClick: function onClick() {
+              return _this8.handleRemoveShare(item);
+            },
+            className: "btn btn-danger",
+            key: "key-removable-".concat(item)
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+            className: "fa fa-minus-circle"
+          }), " ", item);
+        })));
+      }
+    }
   }, {
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Share__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-lg-8 col-md-12 col-sm-12"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Share__WEBPACK_IMPORTED_MODULE_2__["default"], {
         ads: this.state.shares
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      })), this.renderRemoveShareable()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card border-light mb-3"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-header bg-dark text-white"

@@ -107,6 +107,12 @@ export default class MyAdvertisements extends Component {
     }
   }
 
+  /**
+   * Print the add to share button on table row.
+   *
+   * @param bool isPublished
+   * @param int id
+   */
   renderShareButton (isPublished, id) {
     if (isPublished) {
       return (
@@ -264,10 +270,52 @@ export default class MyAdvertisements extends Component {
     }
   }
 
+  /**
+   * remove elements from shares list
+   * @param int id
+   */
+  handleRemoveShare (id) {
+    const shares = [...this.state.shares]
+    shares.splice(shares.indexOf(id), 1)
+    this.setState({ shares: shares })
+  }
+
+  /**
+   * print list of buttons to remove sharable id
+   */
+  renderRemoveShareable () {
+    if (this.state.shares.length > 0) {
+      return (
+        <div className='col-lg-4 col-md-12 col-sm-12 text-right'>
+          <label className='text-warning'>Remove Sharable ids</label>&nbsp;
+          <div className='btn-group btn-group-sm' role='group'>
+            {
+              this.state.shares.map((item) => {
+                return (
+                  <button
+                    onClick={() => this.handleRemoveShare(item)}
+                    className='btn btn-danger'
+                    key={`key-removable-${item}`}
+                  ><i className='fa fa-minus-circle' /> {item}
+                  </button>
+                )
+              })
+            }
+          </div>
+        </div>
+      )
+    }
+  }
+
   render () {
     return (
       <>
-        <Share ads={this.state.shares} />
+        <div className='row'>
+          <div className='col-lg-8 col-md-12 col-sm-12'>
+            <Share ads={this.state.shares} />
+          </div>
+          {this.renderRemoveShareable()}
+        </div>
         <div className='card border-light mb-3'>
           <div className='card-header bg-dark text-white'>{this.props.title}&nbsp;<span className='text-muted'>Total</span>&nbsp;
             {
