@@ -47,6 +47,7 @@ Route::group([
         Route::get('{id}', 'AdvertisementController@view');
         Route::post('create', 'AdvertisementController@create');
         Route::post('update/{id}', 'AdvertisementController@update');
+        Route::post('publish/{id}', 'AdvertisementController@publish');
         Route::delete('{id}', 'AdvertisementController@delete');
     });
 

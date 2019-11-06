@@ -75,6 +75,31 @@ class AdvertisementRepository
     }
 
     /**
+     * Undocumented function
+     *
+     * @param array $data
+     * @param integer $id
+     * @return void
+     */
+    public function setPublish(array $data, int $id)
+    {
+        $advertisement = Advertisement::find($id);
+
+        if ($advertisement) {
+            $advertisement->is_published = $data['is_published'];
+            $advertisement->save();
+
+            return [
+                'status_code' => 200,
+                'message' => 'Success',
+                'data' => new AdvertisementsResource($advertisement)
+            ];
+        } else {
+            return null;
+        }
+    }
+
+    /**
      * get an advertisement data
      *
      * View Logics

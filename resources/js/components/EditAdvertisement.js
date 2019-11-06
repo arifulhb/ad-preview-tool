@@ -56,7 +56,6 @@ export default class EditAdvertisement extends Component {
 
     api.post(`/advertise/update/${this.state.advertisement.id}`, prepareData)
       .then((response) => {
-        console.log(response);
         this.setState({
           message: 'Saved Successfully!!'
         })
@@ -76,9 +75,29 @@ export default class EditAdvertisement extends Component {
    * Send isPublished status to api for status change
    */
   markPublish = (data) => {
-    // let prepareData = this.state.advertisement.advertisement;
-    // console.log('mark publish: ', prepareData)
-    // todo save the publish data
+    this.setState({
+      message: 'Publishing...'
+    })
+
+    api.post(`/advertise/publish/${this.state.advertisement.id}`, {
+      is_published: data
+    })
+      .then((response) => {
+        this.setState({
+          message: 'Published the Advertisement.'
+        }, () => {
+          this.setState({ advertisement: response.data })
+        })
+
+        setTimeout(()=> {
+          this.setState({
+            message: ''
+          })
+        }, 2000)
+      })
+      .catch((error) => {
+        console.log('error ', error)
+      })
   }
 
   formUpdated = (data) => {
@@ -102,7 +121,7 @@ export default class EditAdvertisement extends Component {
         </div>
         <div className='col-lg-6'>
           <div className='row'>
-            <div className='col-lg-6 text-left'>
+            <div className='col-lg-6 col-md-6 col-sm-12 text-left'>
               <strong>Edit Panel: </strong>
               {
                 this.state.advertisement !== null
@@ -110,7 +129,7 @@ export default class EditAdvertisement extends Component {
                   : ''
               }
             </div>
-            <div className='col-lg-6 text-right'>
+            <div className='col-lg-6 col-md-6 col-sm-12 text-right'>
               <span className={`${this.state.message !== '' ? 'badge badge-success' : ''}`}>
                 {this.state.message}
               </span>
@@ -123,6 +142,7 @@ export default class EditAdvertisement extends Component {
                     submitToEdit={this.formUpdated}
                     submitToPublish={this.markPublish}
                     submitToSave={this.handleSave}
+                    isPublished={advertise.isPublished}
                     ad={advertise.advertisement}
                   />
                 : 'No records found to edit'

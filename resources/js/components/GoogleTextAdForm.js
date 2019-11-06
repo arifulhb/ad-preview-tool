@@ -14,7 +14,7 @@ export default class GoogleTextAdForm extends Component {
   }
   submitToPublish = (event) => {
     event.preventDefault()
-    this.props.submitToPublish(false)
+    this.props.submitToPublish(!this.props.isPublished)
   }
   formFieldCallback  = (name, value) => {
     this.props.submitToEdit({
@@ -104,8 +104,8 @@ export default class GoogleTextAdForm extends Component {
               <button
                 onClick={this.submitToPublish}
                 type="button"
-                className="btn btn-warning"
-                >Mark Draft</button>
+                className={`btn btn-${this.props.isPublished ? 'warning' : 'success'}`}
+                >{this.props.isPublished === true ? 'Mark Draft' : 'Publish'}</button>
             </div>
           </div>
         </div>

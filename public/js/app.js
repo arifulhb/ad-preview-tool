@@ -51210,8 +51210,6 @@ function (_Component) {
       });
 
       _utils_api__WEBPACK_IMPORTED_MODULE_4__["default"].post("/advertise/update/".concat(_this.state.advertisement.id), prepareData).then(function (response) {
-        console.log(response);
-
         _this.setState({
           message: 'Saved Successfully!!'
         });
@@ -51226,9 +51224,30 @@ function (_Component) {
       });
     });
 
-    _defineProperty(_assertThisInitialized(_this), "markPublish", function (data) {// let prepareData = this.state.advertisement.advertisement;
-      // console.log('mark publish: ', prepareData)
-      // todo save the publish data
+    _defineProperty(_assertThisInitialized(_this), "markPublish", function (data) {
+      _this.setState({
+        message: 'Publishing...'
+      });
+
+      _utils_api__WEBPACK_IMPORTED_MODULE_4__["default"].post("/advertise/publish/".concat(_this.state.advertisement.id), {
+        is_published: data
+      }).then(function (response) {
+        _this.setState({
+          message: 'Published the Advertisement.'
+        }, function () {
+          _this.setState({
+            advertisement: response.data
+          });
+        });
+
+        setTimeout(function () {
+          _this.setState({
+            message: ''
+          });
+        }, 2000);
+      })["catch"](function (error) {
+        console.log('error ', error);
+      });
     });
 
     _defineProperty(_assertThisInitialized(_this), "formUpdated", function (data) {
@@ -51301,11 +51320,11 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-lg-6 text-left"
+        className: "col-lg-6 col-md-6 col-sm-12 text-left"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, "Edit Panel: "), this.state.advertisement !== null ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         className: "badge badge-success"
       }, advertise.advertisementType) : ''), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-lg-6 text-right"
+        className: "col-lg-6 col-md-6 col-sm-12 text-right"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "".concat(this.state.message !== '' ? 'badge badge-success' : '')
       }, this.state.message))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -51315,6 +51334,7 @@ function (_Component) {
         submitToEdit: this.formUpdated,
         submitToPublish: this.markPublish,
         submitToSave: this.handleSave,
+        isPublished: advertise.isPublished,
         ad: advertise.advertisement
       }) : 'No records found to edit')));
     }
@@ -51555,7 +51575,7 @@ function (_Component) {
     _defineProperty(_assertThisInitialized(_this), "submitToPublish", function (event) {
       event.preventDefault();
 
-      _this.props.submitToPublish(false);
+      _this.props.submitToPublish(!_this.props.isPublished);
     });
 
     _defineProperty(_assertThisInitialized(_this), "formFieldCallback", function (name, value) {
@@ -51643,8 +51663,8 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         onClick: this.submitToPublish,
         type: "button",
-        className: "btn btn-warning"
-      }, "Mark Draft"))))));
+        className: "btn btn-".concat(this.props.isPublished ? 'warning' : 'success')
+      }, this.props.isPublished === true ? 'Mark Draft' : 'Publish'))))));
     }
   }]);
 
