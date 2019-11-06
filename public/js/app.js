@@ -51546,10 +51546,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _utils_api__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/api */ "./resources/js/utils/api.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _Share__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Share */ "./resources/js/components/Advertisement/Share.js");
+/* harmony import */ var _utils_api__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/api */ "./resources/js/utils/api.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_4__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -51572,6 +51581,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var MyAdvertisements =
 /*#__PURE__*/
 function (_Component) {
@@ -51586,6 +51596,7 @@ function (_Component) {
     _this.state = {
       advertisements: null,
       pagination: null,
+      shares: [],
       page: 1
     }; // this.handleDelete.bind(this)
 
@@ -51608,9 +51619,9 @@ function (_Component) {
     value: function getAdvertisements(page) {
       var _this2 = this;
 
-      _utils_api__WEBPACK_IMPORTED_MODULE_2__["default"].get("advertise/index?page=".concat(page)).then(function (res) {
+      _utils_api__WEBPACK_IMPORTED_MODULE_3__["default"].get("advertise/index?page=".concat(page)).then(function (res) {
         _this2.setState({
-          advertisements: lodash__WEBPACK_IMPORTED_MODULE_3___default.a.values(res.data.data),
+          advertisements: lodash__WEBPACK_IMPORTED_MODULE_4___default.a.values(res.data.data),
           pagination: res.data.pagination
         });
       })["catch"](function (error) {
@@ -51656,6 +51667,29 @@ function (_Component) {
       }
     }
     /**
+     * Handle add to share
+     */
+
+  }, {
+    key: "handleAddToShare",
+    value: function handleAddToShare(id) {
+      var ids = _toConsumableArray(this.state.shares);
+
+      if (lodash__WEBPACK_IMPORTED_MODULE_4___default.a.includes(ids, id)) {
+        window.alert("Id ".concat(id, " already exists in the list."));
+        return 0;
+      }
+
+      if (ids.length <= 2) {
+        ids.push(id);
+        this.setState({
+          shares: ids
+        });
+      } else {
+        window.alert('Clear curent shares. Maximum 3 allowed');
+      }
+    }
+    /**
      * Delete Advertise
      * @param int id
      */
@@ -51668,7 +51702,7 @@ function (_Component) {
       var answer = window.confirm('Are you sure to delete this item?');
 
       if (answer) {
-        _utils_api__WEBPACK_IMPORTED_MODULE_2__["default"]["delete"]("/advertise/".concat(id), {}).then(function (response) {
+        _utils_api__WEBPACK_IMPORTED_MODULE_3__["default"]["delete"]("/advertise/".concat(id), {}).then(function (response) {
           if (response.status === 204) {
             // reset the table
             _this4.getAdvertisements(1);
@@ -51681,10 +51715,14 @@ function (_Component) {
   }, {
     key: "renderShareButton",
     value: function renderShareButton(isPublished, id) {
+      var _this5 = this;
+
       if (isPublished) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           className: "btn btn-link",
-          onClick: ""
+          onClick: function onClick() {
+            return _this5.handleAddToShare(id);
+          }
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
           className: "fa fa-share"
         }), "\xA0Add to Share");
@@ -51697,18 +51735,18 @@ function (_Component) {
   }, {
     key: "renderTableRow",
     value: function renderTableRow() {
-      var _this5 = this;
+      var _this6 = this;
 
-      if (!lodash__WEBPACK_IMPORTED_MODULE_3___default.a.isNull(this.state.advertisements)) {
+      if (!lodash__WEBPACK_IMPORTED_MODULE_4___default.a.isNull(this.state.advertisements)) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, this.state.advertisements.map(function (row) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
             key: "tr_".concat(row.id)
-          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.id), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.advertisement.publisher !== null ? row.advertisement.publisher.name : ''), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.advertisementType), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.advertisement.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, _this5.renderPublished(row.isPublished)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.lastUpdate), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.id), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.advertisement.publisher !== null ? row.advertisement.publisher.name : ''), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.advertisementType), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.advertisement.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, _this6.renderPublished(row.isPublished)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, row.lastUpdate), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
             className: "text-right"
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             className: "btn-group btn-group-sm",
             role: "group"
-          }, _this5.renderShareButton(row.isPublished, row.id), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+          }, _this6.renderShareButton(row.isPublished, row.id), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
             className: "btn btn-link",
             target: "_blank",
             rel: "noopener noreferrer",
@@ -51735,7 +51773,7 @@ function (_Component) {
             className: "dropdown-item",
             href: "#",
             onClick: function onClick() {
-              return _this5.handleDelete(row.id);
+              return _this6.handleDelete(row.id);
             }
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
             className: "fa fa-trash"
@@ -51756,7 +51794,7 @@ function (_Component) {
   }, {
     key: "renderPaginationPageItems",
     value: function renderPaginationPageItems(pagination) {
-      var _this6 = this;
+      var _this7 = this;
 
       if (pagination.total >= pagination.count) {
         // pagination logic taken from https://stackoverflow.com/a/11274294
@@ -51782,8 +51820,8 @@ function (_Component) {
             key: "page_".concat(p),
             className: "pagination__body--item page-item"
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-            onClick: _this6.setPageNumber.bind(_this6, p),
-            className: "page-link pagination__body--item ".concat(p === _this6.state.page ? 'bg-dark text-white' : ''),
+            onClick: _this7.setPageNumber.bind(_this7, p),
+            className: "page-link pagination__body--item ".concat(p === _this7.state.page ? 'bg-dark text-white' : ''),
             href: "#"
           }, p));
         }));
@@ -51798,7 +51836,7 @@ function (_Component) {
     value: function renderPagination() {
       var pagination = this.state.pagination;
 
-      if (!lodash__WEBPACK_IMPORTED_MODULE_3___default.a.isNull(this.state.pagination)) {
+      if (!lodash__WEBPACK_IMPORTED_MODULE_4___default.a.isNull(this.state.pagination)) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
           "aria-label": "navigation pagination"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
@@ -51821,13 +51859,15 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Share__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        ads: this.state.shares
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card border-light mb-3"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-header bg-dark text-white"
       }, this.props.title, "\xA0", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "text-muted"
-      }, "Total"), "\xA0", !lodash__WEBPACK_IMPORTED_MODULE_3___default.a.isNull(this.state.pagination) ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+      }, "Total"), "\xA0", !lodash__WEBPACK_IMPORTED_MODULE_4___default.a.isNull(this.state.pagination) ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "badge badge-info"
       }, " ", this.state.pagination.total, " ") : 0), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-body p-0"
@@ -51851,7 +51891,7 @@ function (_Component) {
         width: "5%"
       }, "..."))), this.renderTableRow())), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-footer p-0"
-      }, this.renderPagination()));
+      }, this.renderPagination())));
     }
   }]);
 
@@ -51988,6 +52028,79 @@ if (document.getElementById('my-preview')) {
   var props = Object.assign({}, el.dataset);
   react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Preview, props), document.getElementById('my-preview'));
 }
+
+/***/ }),
+
+/***/ "./resources/js/components/Advertisement/Share.js":
+/*!********************************************************!*\
+  !*** ./resources/js/components/Advertisement/Share.js ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Share; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var codeStyle = {
+  backgroundColor: '#D1D1D0',
+  fontFamily: 'Consolas, Monaco, sans-serif',
+  color: 'blue',
+  padding: '10px 15px'
+};
+
+var Share =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(Share, _Component);
+
+  function Share() {
+    _classCallCheck(this, Share);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(Share).apply(this, arguments));
+  }
+
+  _createClass(Share, [{
+    key: "render",
+    value: function render() {
+      var ids = this.props.ads;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "share-builder row mb-3"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-lg-10 col-md-10 col-sm-12"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Share URL:"), "\xA0", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("code", {
+        style: codeStyle
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "".concat(window.location.protocol, "//").concat(window.location.host, "/advertise/preview?ads=").concat(ids)))));
+    }
+  }]);
+
+  return Share;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+
 
 /***/ }),
 

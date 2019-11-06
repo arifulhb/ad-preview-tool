@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
+import Share from './Share'
 import api from '../../utils/api'
 import _ from 'lodash'
 
@@ -9,6 +10,7 @@ export default class MyAdvertisements extends Component {
     this.state = {
       advertisements: null,
       pagination: null,
+      shares: [],
       page: 1
     }
 
@@ -66,6 +68,25 @@ export default class MyAdvertisements extends Component {
   }
 
   /**
+   * Handle add to share
+   */
+  handleAddToShare (id) {
+    const ids = [...this.state.shares]
+
+    if (_.includes(ids, id)) {
+      window.alert(`Id ${id} already exists in the list.`)
+      return 0
+    }
+
+    if (ids.length <= 2) {
+      ids.push(id)
+      this.setState({ shares: ids })
+    } else {
+      window.alert('Clear curent shares. Maximum 3 allowed')
+    }
+  }
+
+  /**
    * Delete Advertise
    * @param int id
    */
@@ -89,7 +110,7 @@ export default class MyAdvertisements extends Component {
   renderShareButton (isPublished, id) {
     if (isPublished) {
       return (
-        <button className='btn btn-link' onClick=''>
+        <button className='btn btn-link' onClick={() => this.handleAddToShare(id)}>
           <i className='fa fa-share' />&nbsp;Add to Share
         </button>
       )
@@ -245,34 +266,37 @@ export default class MyAdvertisements extends Component {
 
   render () {
     return (
-      <div className='card border-light mb-3'>
-        <div className='card-header bg-dark text-white'>{this.props.title}&nbsp;<span className='text-muted'>Total</span>&nbsp;
-          {
-            !_.isNull(this.state.pagination)
-              ? <span className='badge badge-info'> {this.state.pagination.total} </span>
-              : 0
-          }
+      <>
+        <Share ads={this.state.shares} />
+        <div className='card border-light mb-3'>
+          <div className='card-header bg-dark text-white'>{this.props.title}&nbsp;<span className='text-muted'>Total</span>&nbsp;
+            {
+              !_.isNull(this.state.pagination)
+                ? <span className='badge badge-info'> {this.state.pagination.total} </span>
+                : 0
+            }
+          </div>
+          <div className='card-body p-0'>
+            <table className='table table-bordered table-sm table-hover'>
+              <thead className='bg-light'>
+                <tr>
+                  <th width='2%'>Id</th>
+                  <th width='6%'>Publisher</th>
+                  <th width='6%'>Type</th>
+                  <th width='15%'>Title</th>
+                  <th width='5%'>Status</th>
+                  <th width='8%'>Last Update</th>
+                  <th width='5%'>...</th>
+                </tr>
+              </thead>
+              {this.renderTableRow()}
+            </table>
+          </div>
+          <div className='card-footer p-0'>
+            {this.renderPagination()}
+          </div>
         </div>
-        <div className='card-body p-0'>
-          <table className='table table-bordered table-sm table-hover'>
-            <thead className='bg-light'>
-              <tr>
-                <th width='2%'>Id</th>
-                <th width='6%'>Publisher</th>
-                <th width='6%'>Type</th>
-                <th width='15%'>Title</th>
-                <th width='5%'>Status</th>
-                <th width='8%'>Last Update</th>
-                <th width='5%'>...</th>
-              </tr>
-            </thead>
-            {this.renderTableRow()}
-          </table>
-        </div>
-        <div className='card-footer p-0'>
-          {this.renderPagination()}
-        </div>
-      </div>
+      </>
     )
   }
 }
