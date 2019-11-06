@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import GoogleTextAd from './GoogleTextAd'
-
-import api from '../utils/api'
+import GoogleTextAd from '../GoogleTextAd'
+import api from '../../utils/api'
 import _ from 'lodash'
 
 export default class Preview extends Component {

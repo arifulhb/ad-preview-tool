@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import GoogleTextAd from './GoogleTextAd'
-import GoogleTextAdForm from './GoogleTextAdForm'
-import api from '../utils/api'
+import GoogleTextAd from '../GoogleTextAd'
+import GoogleTextAdForm from '../GoogleTextAdForm'
+import api from '../../utils/api'
 import _ from 'lodash'
 
 export default class EditAdvertisement extends Component {

@@ -13,7 +13,7 @@
  */
 
 require('./components/Example')
-require('./components/MyAdvertisements')
-require('./components/Preview')
-require('./components/EditAdvertisement')
+require('./components/Advertisement/MyAdvertisements')
+require('./components/Advertisement/Preview')
+require('./components/Advertisement/EditAdvertisement')
 require('./components/Advertisement/AddAdvertisement')
