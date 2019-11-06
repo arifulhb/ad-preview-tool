@@ -51948,7 +51948,11 @@ function (_Component) {
         className: "card border-light mb-3"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-header bg-dark text-white"
-      }, this.props.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, this.props.title, "\xA0", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "text-muted"
+      }, "Total"), "\xA0", !lodash__WEBPACK_IMPORTED_MODULE_3___default.a.isNull(this.state.pagination) ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "badge badge-info"
+      }, " ", this.state.pagination.total, " ") : 0), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-body p-0"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
         className: "table table-bordered table-sm table-hover"
