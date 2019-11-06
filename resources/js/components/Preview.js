@@ -9,10 +9,34 @@ export default class Preview extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      advertisements: null,
-      pagination: null,
-      page: 1
+      advertisements: null
     }
+  }
+
+  componentDidMount () {
+    const ids = this.props.ids.split(',')
+    // get data from api in array and load the GoogleTextad in loop
+
+    api.post('preview', { ids: ids })
+      .then((response) => {
+        const advs = _.values(response.data.data)
+        this.setState({ advertisements: advs })
+      })
+      .catch((error) => {
+        console.log('errors: ', error)
+      })
+  }
+
+  /**
+   * Render list of Google Ads
+   * @param ads
+   */
+  renderAds (ads) {
+    return (
+      ads.map((item, key) => {
+        return <GoogleTextAd key={`google-text-ad-${key}`} ad={item.advertisement} />
+      })
+    )
   }
 
   render () {
@@ -26,9 +50,9 @@ export default class Preview extends Component {
             </div>
           </div>
         </div>
-        <GoogleTextAd id='1'>1</GoogleTextAd>
-        <GoogleTextAd id='2'>1</GoogleTextAd>
-        <GoogleTextAd id='3'>1</GoogleTextAd>
+        {
+          !_.isNull(this.state.advertisements) ? this.renderAds(this.state.advertisements) : ''
+        }
       </>
     )
   }

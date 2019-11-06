@@ -69,6 +69,27 @@ class AdvertisementController extends Controller
     }
 
     /**
+     * Preview will get the list if ids and return maximum 3 latest results from ids
+     * @param Request $request
+     *
+     * @return void
+     */
+    public function preview(Request $request) {
+
+        $advertisementRepo = new AdvertisementRepository();
+        $ids = $request->input('ids');
+
+        $response = $advertisementRepo->getAdvertisementsForPreview($ids);
+
+        if ($response->count() > 0) {
+            return response()->json($response, 200);
+        } else {
+            return response()->json(['message' => 'Resource not found'], 404);
+        }
+
+    }
+
+    /**
      * View a specific advertisement
      *
      * @param int $id

@@ -52023,14 +52023,46 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Preview).call(this, props));
     _this.state = {
-      advertisements: null,
-      pagination: null,
-      page: 1
+      advertisements: null
     };
     return _this;
   }
 
   _createClass(Preview, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      var ids = this.props.ids.split(','); // get data from api in array and load the GoogleTextad in loop
+
+      _utils_api__WEBPACK_IMPORTED_MODULE_3__["default"].post('preview', {
+        ids: ids
+      }).then(function (response) {
+        var advs = lodash__WEBPACK_IMPORTED_MODULE_4___default.a.values(response.data.data);
+
+        _this2.setState({
+          advertisements: advs
+        });
+      })["catch"](function (error) {
+        console.log('errors: ', error);
+      });
+    }
+    /**
+     * Render list of Google Ads
+     * @param ads
+     */
+
+  }, {
+    key: "renderAds",
+    value: function renderAds(ads) {
+      return ads.map(function (item, key) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_GoogleTextAd__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          key: "google-text-ad-".concat(key),
+          ad: item.advertisement
+        });
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -52043,13 +52075,7 @@ function (_Component) {
         className: "m-0 p-0"
       }, "Preview"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
         className: "p-0"
-      })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_GoogleTextAd__WEBPACK_IMPORTED_MODULE_2__["default"], {
-        id: "1"
-      }, "1"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_GoogleTextAd__WEBPACK_IMPORTED_MODULE_2__["default"], {
-        id: "2"
-      }, "1"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_GoogleTextAd__WEBPACK_IMPORTED_MODULE_2__["default"], {
-        id: "3"
-      }, "1"));
+      })))), !lodash__WEBPACK_IMPORTED_MODULE_4___default.a.isNull(this.state.advertisements) ? this.renderAds(this.state.advertisements) : '');
     }
   }]);
 

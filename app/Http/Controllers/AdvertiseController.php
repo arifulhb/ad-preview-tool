@@ -19,11 +19,22 @@ class AdvertiseController extends Controller
 
     /**
      * Preview an advertisement
+     * @param Request $request
      *
      * @return void
      */
-    public function preview()
+    public function preview(Request $request)
     {
-        return view('pages.preview');
+        $dataFromUrl = explode(',', $request->input('ids'));
+
+        $ids = [];
+        foreach($dataFromUrl as $id)
+        {
+            if (is_numeric($id)) {
+                array_push($ids, $id);
+            }
+        }
+
+        return view('pages.preview', ['ids' => implode(",", $ids)]);
     }
 }

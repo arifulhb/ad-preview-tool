@@ -28,6 +28,23 @@ class AdvertisementRepository
     }
 
     /**
+     * Get Advertisements for preview
+     *
+     * @param array $ids
+     * @return void
+     */
+    public function getAdvertisementsForPreview(array $ids)
+    {
+        $advertisements = Advertisement::whereIn('id', $ids)
+            // ->where('is_published', true)  // @todo uncomment this
+            ->orderByDesc('id')
+            ->limit(3)
+            ->paginate();
+
+        return new AdvertisementCollection($advertisements);
+    }
+
+    /**
      * Create an Advertisement
      *
      * @param array $data
