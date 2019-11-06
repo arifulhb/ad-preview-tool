@@ -26,6 +26,7 @@ class Advertisement extends JsonResource
             'advertisementType' => $type,
             'advertisement' => AdvertisementFactory::getAdvertisementResource($type, $this->advertisable),
             'visibility' => getVisibility($this->visibility),
+            'lastUpdate' => $this->updated_at->diffForHumans(),
             'createdBy' => new UsersResource($this->createdBy),
             'updatedBy' => new UsersResource($this->updatedBy),
         ];
