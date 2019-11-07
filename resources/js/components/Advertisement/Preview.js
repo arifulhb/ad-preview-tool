@@ -38,13 +38,27 @@ export default class Preview extends Component {
     )
   }
 
+  renderWarning (isPublished) {
+    if (!isPublished) {
+      return (
+        <span className='badge badge-warning'>In draft mode now</span>
+      )
+    }
+  }
+
   render () {
     return (
       <>
         <div className='row'>
           <div className='col-lg-12'>
             <div className='mb-4'>
-              <p className='m-0 p-0'>Preview</p>
+              <p className='m-0 p-0'>Preview&nbsp;&nbsp;
+                {
+                  !_.isNull(this.state.advertisements)
+                    ? this.renderWarning(this.state.advertisements.isPublished)
+                    : ''
+                }
+              </p>
               <hr className='p-0' />
             </div>
           </div>

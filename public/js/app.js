@@ -52058,6 +52058,15 @@ function (_Component) {
       });
     }
   }, {
+    key: "renderWarning",
+    value: function renderWarning(isPublished) {
+      if (!isPublished) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+          className: "badge badge-warning"
+        }, "In draft mode now");
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -52068,7 +52077,7 @@ function (_Component) {
         className: "mb-4"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: "m-0 p-0"
-      }, "Preview"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
+      }, "Preview\xA0\xA0", !lodash__WEBPACK_IMPORTED_MODULE_4___default.a.isNull(this.state.advertisements) ? this.renderWarning(this.state.advertisements.isPublished) : ''), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
         className: "p-0"
       })))), !lodash__WEBPACK_IMPORTED_MODULE_4___default.a.isNull(this.state.advertisements) ? this.renderAds(this.state.advertisements) : '');
     }
