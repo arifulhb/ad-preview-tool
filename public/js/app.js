@@ -52173,7 +52173,7 @@ function (_Component) {
       var _this = this;
 
       var ids = this.props.ads;
-      var url = "".concat(window.location.protocol, "//").concat(window.location.host, "/advertise/preview?ads=").concat(ids);
+      var url = "".concat(window.location.protocol, "//").concat(window.location.host, "/advertise/preview?ids=").concat(ids);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "share-builder row mb-3"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
