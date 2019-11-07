@@ -52419,9 +52419,12 @@ function (_Component) {
       });
     });
 
-    console.log('GoogleTextAdForm props ', props);
     return _this;
   }
+  /**
+   * Pass data to parent element to save the data
+   */
+
 
   _createClass(GoogleTextAdForm, [{
     key: "render",

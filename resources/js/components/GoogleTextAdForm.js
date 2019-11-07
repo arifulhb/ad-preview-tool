@@ -5,17 +5,27 @@ import _ from 'lodash'
 export default class GoogleTextAdForm extends Component {
   constructor (props) {
     super(props)
-    console.log('GoogleTextAdForm props ', props)
   }
 
+  /**
+   * Pass data to parent element to save the data
+   */
   submitToSave = (event) => {
     event.preventDefault()
     this.props.submitToSave()
   }
+
+  /**
+   * Pass data to parent component to publish the ad
+   */
   submitToPublish = (event) => {
     event.preventDefault()
     this.props.submitToPublish(!this.props.isPublished)
   }
+
+  /**
+   * pass data to parent component
+   */
   formFieldCallback  = (name, value) => {
     this.props.submitToEdit({
       'name': name,
@@ -24,7 +34,6 @@ export default class GoogleTextAdForm extends Component {
   }
 
   render () {
-
     return (
       <>
       <div className='row'>
