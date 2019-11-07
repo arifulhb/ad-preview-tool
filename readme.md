@@ -51,6 +51,15 @@ php artisan db:seed
 ```
 You should be all good to run the site.
 
+## Development
+For development, on top of above installation instructions, you need to install `NPM` packages.
+```
+npm install
+npm run dev \\ for compiling react sources for development
+npm run watch \\ compile and run react sourcces
+npm run prod \\ for production css & javascript files
+```
+
 ## License
 
 The Laravel framework is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT).
