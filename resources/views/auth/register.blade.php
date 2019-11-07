@@ -1,84 +1,67 @@
-@extends('layouts.app')
-
+@extends('layouts.day.app ')
+@section('title', 'Register')
 @section('content')
-    <div class="container mx-auto">
-        <div class="flex flex-wrap justify-center">
-            <div class="w-full max-w-sm">
-                <div class="flex flex-col break-words bg-white border border-2 rounded shadow-md">
 
-                    <div class="font-semibold bg-gray-200 text-gray-700 py-3 px-6 mb-0">
-                        {{ __('Register') }}
-                    </div>
+<div class="container-fluid">
+    @component('auth.layout', ['title'=> 'Register'])
+        <form name="my-form" onsubmit="return validform()" class=""
+            action="{{ route('register') }}" method="post">
+            @csrf
+            @include('components.form-group', [
+                'icon' => 'fa fa-user',
+                'placeholder' => 'Name',
+                'id' => 'name',
+                'value' => old('name'),
+                'name' => 'name',
+                'error' => $errors->has('name') ? $errors->first('name') : null
+            ])
 
-                    <form class="w-full p-6" method="POST" action="{{ route('register') }}">
-                        @csrf
+            @include('components.form-group', [
+                'icon' => 'fa fa-envelope',
+                'placeholder' => 'Email',
+                'type' => 'email',
+                'value' => old('email'),
+                'id' => 'email',
+                'name' => 'email',
+                'error' => $errors->has('email') ? $errors->first('email') : null
+            ])
 
-                        <div class="flex flex-wrap mb-6">
-                            <label for="name" class="block text-gray-700 text-sm font-bold mb-2">
-                                {{ __('Name') }}:
-                            </label>
 
-                            <input id="name" type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('name')  border-red-500 @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+            @include('components.form-group', [
+                'icon' => 'fa fa-link',
+                'placeholder' => 'username',
+                'id' => 'account',
+                'value' => old('account'),
+                'name' => 'account',
+                'error' => $errors->has('account') ? $errors->first('account') : null
+            ])
 
-                            @error('name')
-                                <p class="text-red-500 text-xs italic mt-4">
-                                    {{ $message }}
-                                </p>
-                            @enderror
-                        </div>
+            @include('components.form-group', [
+                'icon' => 'fa fa-lock',
+                'placeholder' => 'Password',
+                'type' => 'password',
+                'id' => 'password',
+                'name' => 'password',
+                'error' => $errors->has('password') ? $errors->first('password') : null
+            ])
 
-                        <div class="flex flex-wrap mb-6">
-                            <label for="email" class="block text-gray-700 text-sm font-bold mb-2">
-                                {{ __('E-Mail Address') }}:
-                            </label>
+            @include('components.form-group', [
+                'icon' => 'fa fa-lock',
+                'placeholder' => 'Conrim Password',
+                'type' => 'password',
+                'id' => 'password_confirmation',
+                'name' => 'password_confirmation',
+                'error' => $errors->has('password_confirmation') ? $errors->first('password_confirmation') : null
+            ])
 
-                            <input id="email" type="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('email') border-red-500 @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
-                            @error('email')
-                                <p class="text-red-500 text-xs italic mt-4">
-                                    {{ $message }}
-                                </p>
-                            @enderror
-                        </div>
-
-                        <div class="flex flex-wrap mb-6">
-                            <label for="password" class="block text-gray-700 text-sm font-bold mb-2">
-                                {{ __('Password') }}:
-                            </label>
-
-                            <input id="password" type="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('password') border-red-500 @enderror" name="password" required autocomplete="new-password">
-
-                            @error('password')
-                                <p class="text-red-500 text-xs italic mt-4">
-                                    {{ $message }}
-                                </p>
-                            @enderror
-                        </div>
-
-                        <div class="flex flex-wrap mb-6">
-                            <label for="password-confirm" class="block text-gray-700 text-sm font-bold mb-2">
-                                {{ __('Confirm Password') }}:
-                            </label>
-
-                            <input id="password-confirm" type="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="password_confirmation" required autocomplete="new-password">
-                        </div>
-
-                        <div class="flex flex-wrap">
-                            <button type="submit" class="inline-block align-middle text-center select-none border font-bold whitespace-no-wrap py-2 px-4 rounded text-base leading-normal no-underline text-gray-100 bg-blue-500 hover:bg-blue-700">
-                                {{ __('Register') }}
-                            </button>
-
-                            <p class="w-full text-xs text-center text-gray-700 mt-8 -mb-4">
-                                {{ __('Already have an account?') }}
-                                <a class="text-blue-500 hover:text-blue-700 no-underline" href="{{ route('login') }}">
-                                    {{ __('Login') }}
-                                </a>
-                            </p>
-                        </div>
-                    </form>
-
-                </div>
+            <div class="col-md-6 offset-md-4">
+                <button type="submit" class="btn btn-primary">Register</button>
             </div>
-        </div>
-    </div>
+            </div>
+        </form>
+        @slot('footer')
+            <p class="mb-1">Already have an account?&nbsp;<a href="{{ url('/login') }}">Sign in</a></p>
+        @endslot
+    @endcomponent
+</div>
 @endsection
