@@ -60,6 +60,19 @@ npm run dev \\ for compiling react sources for development
 npm run watch \\ compile and run react sourcces
 npm run prod \\ for production css & javascript files
 ```
+### Important Folder Information
+.
++-- app/
+|   +-- Contracts // Advertisement contract that will be implemented in Advertisement Type repository.
+|   +-- Factory //Advertisement Factory class
+|   +-- Helpers // Helper constant and functions
+|   +-- Http
+|   +-- Controllers
+|   +---- Api // All the api controllers to perform ajax request from React Front-end
+|   +-- Repository // Repository classes to implement logic during data manipulation and retrival
++-- _resources
+|   +-- js
+|       +-- components // React js components for front-end code.
 
 ## License
 
