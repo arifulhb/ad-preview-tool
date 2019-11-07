@@ -52051,11 +52051,23 @@ function (_Component) {
     key: "renderAds",
     value: function renderAds(ads) {
       return ads.map(function (item, key) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_GoogleTextAd__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        return item.isPublished && item.isAuth ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_GoogleTextAd__WEBPACK_IMPORTED_MODULE_2__["default"], {
           key: "google-text-ad-".concat(key),
           ad: item.advertisement
-        });
+        }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          key: "warning-".concat(key),
+          className: "text-danger mb-5 border p-2"
+        }, "This item is not ready for preview");
       });
+    }
+  }, {
+    key: "renderWarning",
+    value: function renderWarning(isPublished) {
+      if (!isPublished) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+          className: "badge badge-warning"
+        }, "In draft mode now");
+      }
     }
   }, {
     key: "render",
@@ -52068,7 +52080,7 @@ function (_Component) {
         className: "mb-4"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: "m-0 p-0"
-      }, "Preview"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
+      }, "Preview\xA0\xA0", !lodash__WEBPACK_IMPORTED_MODULE_4___default.a.isNull(this.state.advertisements) ? this.renderWarning(this.state.advertisements.isPublished) : ''), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
         className: "p-0"
       })))), !lodash__WEBPACK_IMPORTED_MODULE_4___default.a.isNull(this.state.advertisements) ? this.renderAds(this.state.advertisements) : '');
     }
@@ -52161,7 +52173,7 @@ function (_Component) {
       var _this = this;
 
       var ids = this.props.ads;
-      var url = "".concat(window.location.protocol, "//").concat(window.location.host, "/advertise/preview?ads=").concat(ids);
+      var url = "".concat(window.location.protocol, "//").concat(window.location.host, "/advertise/preview?ids=").concat(ids);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "share-builder row mb-3"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {

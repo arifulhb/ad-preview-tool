@@ -2,9 +2,10 @@
 
 namespace App\Http\Resources;
 
+use App\Factory\AdvertisementFactory;
 use App\Http\Resources\Created as UsersResource;
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Factory\AdvertisementFactory;
+use Auth;
 
 class Advertisement extends JsonResource
 {
@@ -29,6 +30,7 @@ class Advertisement extends JsonResource
             'lastUpdate' => $this->updated_at->diffForHumans(),
             'createdBy' => new UsersResource($this->createdBy),
             'updatedBy' => new UsersResource($this->updatedBy),
+            'isAuth' => Auth::check()
         ];
     }
 }

@@ -23,7 +23,7 @@ export default class Share extends Component {
 
   render () {
     const ids = this.props.ads
-    const url = `${window.location.protocol}//${window.location.host}/advertise/preview?ads=${ids}`
+    const url = `${window.location.protocol}//${window.location.host}/advertise/preview?ids=${ids}`
 
     return (
       <div className='share-builder row mb-3'>
