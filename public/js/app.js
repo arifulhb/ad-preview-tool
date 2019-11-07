@@ -52051,10 +52051,13 @@ function (_Component) {
     key: "renderAds",
     value: function renderAds(ads) {
       return ads.map(function (item, key) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_GoogleTextAd__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        return item.isPublished && item.isAuth ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_GoogleTextAd__WEBPACK_IMPORTED_MODULE_2__["default"], {
           key: "google-text-ad-".concat(key),
           ad: item.advertisement
-        });
+        }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          key: "warning-".concat(key),
+          className: "text-danger mb-5 border p-2"
+        }, "This item is not ready for preview");
       });
     }
   }, {

@@ -33,7 +33,11 @@ export default class Preview extends Component {
   renderAds (ads) {
     return (
       ads.map((item, key) => {
-        return <GoogleTextAd key={`google-text-ad-${key}`} ad={item.advertisement} />
+        return (
+          item.isPublished && item.isAuth
+            ? <GoogleTextAd key={`google-text-ad-${key}`} ad={item.advertisement} />
+            : <div key={`warning-${key}`} className='text-danger mb-5 border p-2'>This item is not ready for preview</div>
+        )
       })
     )
   }
