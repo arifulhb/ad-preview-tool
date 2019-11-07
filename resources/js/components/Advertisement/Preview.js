@@ -34,20 +34,12 @@ export default class Preview extends Component {
     return (
       ads.map((item, key) => {
         return (
-          item.isPublished && item.isAuth
+          item.isPublished || item.isAuth
             ? <GoogleTextAd key={`google-text-ad-${key}`} ad={item.advertisement} />
             : <div key={`warning-${key}`} className='text-danger mb-5 border p-2'>This item is not ready for preview</div>
         )
       })
     )
-  }
-
-  renderWarning (isPublished) {
-    if (!isPublished) {
-      return (
-        <span className='badge badge-warning'>In draft mode now</span>
-      )
-    }
   }
 
   render () {
@@ -56,13 +48,7 @@ export default class Preview extends Component {
         <div className='row'>
           <div className='col-lg-12'>
             <div className='mb-4'>
-              <p className='m-0 p-0'>Preview&nbsp;&nbsp;
-                {
-                  !_.isNull(this.state.advertisements)
-                    ? this.renderWarning(this.state.advertisements.isPublished)
-                    : ''
-                }
-              </p>
+              <p className='m-0 p-0'>Preview</p>
               <hr className='p-0' />
             </div>
           </div>
